@@ -481,7 +481,7 @@ void imprime_score_web() {
 	int i, flag, vetor[5] = {0};
 	FILE *pt;
 	/* pt é um apontador que fica encarregado de ler o ficheiro "score" */
-	pt = fopen("/var/www/html/ficheiros/score","r");
+	pt = fopen("/var/www/html/pontuações","r");
 
 	/* Caso em que o ficheiro "score" não existe. pt aponta para NULL */
 	if(pt == NULL) {
@@ -514,13 +514,13 @@ void imprime_score_ficheiro(int score)
 	int vetor[5] = {0};
 
 	/* pt é um apontador que fica encarregado de ler o ficheiro "score" */
-	pt = fopen("/var/www/html/ficheiros/score","r");
+	pt = fopen("/var/www/html/pontuações","r");
 
 	/* Caso em que o ficheiro "score" não existe. pt aponta para NULL */
 	if(pt == NULL) {
 		perror("Não consegui ler o ficheiro com o Score");
 		/* Dado que não existe, cria-se o ficheiro, imprimindo o score nele */
-		pt = fopen("/var/www/html/ficheiros/score", "w");
+		pt = fopen("/var/www/html/pontuações", "w");
 		fprintf(pt, "%d\n", score);
 	}
 	else {
@@ -533,7 +533,7 @@ void imprime_score_ficheiro(int score)
 		insere(score, vetor);
 
 		/* Output dos scores no ficheiro segundo a ordem do vetor (decrescente) */
-		pt = freopen("/var/www/html/ficheiros/score","w", pt);
+		pt = freopen("/var/www/html/pontuações","w", pt);
 		for(i = 0; i < 5; i++) {
 			fprintf(pt, "%d\n", vetor[i]);
 		}
@@ -551,7 +551,7 @@ int menor_valor_ranking()
 	int i, flag, n = 0;
 	int vetor[5] = {0};
 
-	pt = fopen("/var/www/html/ficheiros/score","r"); /* pt é um apontador que fica encarregado de ler o ficheiro "score" */
+	pt = fopen("/var/www/html/pontuações","r"); /* pt é um apontador que fica encarregado de ler o ficheiro "score" */
 
 	if(pt == NULL) /* Caso em que o ficheiro "score" não existe. pt aponta para NULL */
 	{
@@ -628,7 +628,7 @@ ESTADO ler_estado(char *args)
 		/* Leitura da ação do jogador e os respetivos valores x, y. */
     	sscanf(args, "%[^,],%d,%d", action.nome, &action.x, &action.y);
 		/* fp é um apontador que fica encarregado de ler o ficheiro "score" */
-    	fp = fopen("/var/www/html/ficheiros/state","r");
+    	fp = fopen("/var/www/html/estado","r");
     	
 		/* Caso em que o ficheiro "estado" não existe. fp aponta para NULL */
     	if(fp == NULL) {

@@ -1,0 +1,119 @@
+\hypertarget{estado_8h}{}\section{estado.\+h File Reference}
+\label{estado_8h}\index{estado.\+h@{estado.\+h}}
+This graph shows which files directly or indirectly include this file\+:
+% FIG 0
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structposicao}{posicao}
+\item 
+struct \hyperlink{structaction}{action}
+\item 
+struct \hyperlink{structestado}{estado}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{estado_8h_aa97e6cbfdd94711688f1176cb8dd916a}{M\+A\+X\+\_\+\+I\+N\+I\+M\+I\+G\+OS}~100
+\item 
+\#define \hyperlink{estado_8h_ac574e2817856ecc9a890d2d47cb9d783}{M\+A\+X\+\_\+\+O\+B\+S\+T\+A\+C\+U\+L\+OS}~100
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structposicao}{posicao} \hyperlink{estado_8h_a55b3f4b56938eeb8fa5e8f9c07baf1b0}{P\+O\+S\+I\+C\+AO}
+\item 
+typedef struct \hyperlink{structaction}{action} \hyperlink{estado_8h_a6bf741bba35d152589c909fdcfe6c0cd}{A\+C\+T\+I\+ON}
+\item 
+typedef struct \hyperlink{structestado}{estado} \hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{estado_8h_af32bcca287788ae0563fa9a6debf4603}{estado2str} (\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} e)
+\item 
+\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} \hyperlink{estado_8h_a45c321c3b31e4e95b8451d7db7678cf0}{str2estado} (char $\ast$argumentos)
+\item 
+void \hyperlink{estado_8h_a253575f83d8358938ee538334c2521f1}{estado2ficheiro} (\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} e)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Definição do estado e das funções que convertem estados em strings e vice-\/versa. 
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{estado_8h_aa97e6cbfdd94711688f1176cb8dd916a}\label{estado_8h_aa97e6cbfdd94711688f1176cb8dd916a}} 
+\index{estado.\+h@{estado.\+h}!M\+A\+X\+\_\+\+I\+N\+I\+M\+I\+G\+OS@{M\+A\+X\+\_\+\+I\+N\+I\+M\+I\+G\+OS}}
+\index{M\+A\+X\+\_\+\+I\+N\+I\+M\+I\+G\+OS@{M\+A\+X\+\_\+\+I\+N\+I\+M\+I\+G\+OS}!estado.\+h@{estado.\+h}}
+\subsubsection{\texorpdfstring{M\+A\+X\+\_\+\+I\+N\+I\+M\+I\+G\+OS}{MAX\_INIMIGOS}}
+{\footnotesize\ttfamily \#define M\+A\+X\+\_\+\+I\+N\+I\+M\+I\+G\+OS~100}
+
+O nº máximo de inimigos. \mbox{\Hypertarget{estado_8h_ac574e2817856ecc9a890d2d47cb9d783}\label{estado_8h_ac574e2817856ecc9a890d2d47cb9d783}} 
+\index{estado.\+h@{estado.\+h}!M\+A\+X\+\_\+\+O\+B\+S\+T\+A\+C\+U\+L\+OS@{M\+A\+X\+\_\+\+O\+B\+S\+T\+A\+C\+U\+L\+OS}}
+\index{M\+A\+X\+\_\+\+O\+B\+S\+T\+A\+C\+U\+L\+OS@{M\+A\+X\+\_\+\+O\+B\+S\+T\+A\+C\+U\+L\+OS}!estado.\+h@{estado.\+h}}
+\subsubsection{\texorpdfstring{M\+A\+X\+\_\+\+O\+B\+S\+T\+A\+C\+U\+L\+OS}{MAX\_OBSTACULOS}}
+{\footnotesize\ttfamily \#define M\+A\+X\+\_\+\+O\+B\+S\+T\+A\+C\+U\+L\+OS~100}
+
+O nº máximo de obstáculos. 
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{estado_8h_a6bf741bba35d152589c909fdcfe6c0cd}\label{estado_8h_a6bf741bba35d152589c909fdcfe6c0cd}} 
+\index{estado.\+h@{estado.\+h}!A\+C\+T\+I\+ON@{A\+C\+T\+I\+ON}}
+\index{A\+C\+T\+I\+ON@{A\+C\+T\+I\+ON}!estado.\+h@{estado.\+h}}
+\subsubsection{\texorpdfstring{A\+C\+T\+I\+ON}{ACTION}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structaction}{action}  \hyperlink{estado_8h_a6bf741bba35d152589c909fdcfe6c0cd}{A\+C\+T\+I\+ON}}
+
+Estrutura de dados que armazena informação relatica a uma ação. \mbox{\Hypertarget{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}\label{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}} 
+\index{estado.\+h@{estado.\+h}!E\+S\+T\+A\+DO@{E\+S\+T\+A\+DO}}
+\index{E\+S\+T\+A\+DO@{E\+S\+T\+A\+DO}!estado.\+h@{estado.\+h}}
+\subsubsection{\texorpdfstring{E\+S\+T\+A\+DO}{ESTADO}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structestado}{estado}  \hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO}}
+
+Estrutura que armazena o estado do jogo. \mbox{\Hypertarget{estado_8h_a55b3f4b56938eeb8fa5e8f9c07baf1b0}\label{estado_8h_a55b3f4b56938eeb8fa5e8f9c07baf1b0}} 
+\index{estado.\+h@{estado.\+h}!P\+O\+S\+I\+C\+AO@{P\+O\+S\+I\+C\+AO}}
+\index{P\+O\+S\+I\+C\+AO@{P\+O\+S\+I\+C\+AO}!estado.\+h@{estado.\+h}}
+\subsubsection{\texorpdfstring{P\+O\+S\+I\+C\+AO}{POSICAO}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structposicao}{posicao}  \hyperlink{estado_8h_a55b3f4b56938eeb8fa5e8f9c07baf1b0}{P\+O\+S\+I\+C\+AO}}
+
+Estrutura que armazena uma posição. 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{estado_8h_a253575f83d8358938ee538334c2521f1}\label{estado_8h_a253575f83d8358938ee538334c2521f1}} 
+\index{estado.\+h@{estado.\+h}!estado2ficheiro@{estado2ficheiro}}
+\index{estado2ficheiro@{estado2ficheiro}!estado.\+h@{estado.\+h}}
+\subsubsection{\texorpdfstring{estado2ficheiro()}{estado2ficheiro()}}
+{\footnotesize\ttfamily void estado2ficheiro (\begin{DoxyParamCaption}\item[{\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO}}]{e }\end{DoxyParamCaption})}
+
+Função que grava o estado no ficheiro \char`\"{}estado\char`\"{}. 
+\begin{DoxyParams}{Parameters}
+{\em e} & Estado \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{estado_8h_af32bcca287788ae0563fa9a6debf4603}\label{estado_8h_af32bcca287788ae0563fa9a6debf4603}} 
+\index{estado.\+h@{estado.\+h}!estado2str@{estado2str}}
+\index{estado2str@{estado2str}!estado.\+h@{estado.\+h}}
+\subsubsection{\texorpdfstring{estado2str()}{estado2str()}}
+{\footnotesize\ttfamily char$\ast$ estado2str (\begin{DoxyParamCaption}\item[{\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO}}]{e }\end{DoxyParamCaption})}
+
+Função que converte um estado numa string. 
+\begin{DoxyParams}{Parameters}
+{\em e} & O estado \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A string correspondente ao estado e. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{estado_8h_a45c321c3b31e4e95b8451d7db7678cf0}\label{estado_8h_a45c321c3b31e4e95b8451d7db7678cf0}} 
+\index{estado.\+h@{estado.\+h}!str2estado@{str2estado}}
+\index{str2estado@{str2estado}!estado.\+h@{estado.\+h}}
+\subsubsection{\texorpdfstring{str2estado()}{str2estado()}}
+{\footnotesize\ttfamily \hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} str2estado (\begin{DoxyParamCaption}\item[{char $\ast$}]{argumentos }\end{DoxyParamCaption})}
+
+Função que converte uma string num estado. 
+\begin{DoxyParams}{Parameters}
+{\em argumentos} & Uma string contendo os argumentos passados à C\+GI \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+O estado correspondente à string dos argumentos. 
+\end{DoxyReturn}

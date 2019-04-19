@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include "estado.h"
+#include <stdio.h>
 
 #define MAX_BUFFER 10240
 
@@ -10,8 +10,9 @@ char *estado2str(ESTADO e) {
 
 	buffer[0] = 0;
 
-	for(i = 0; i < sizeof(ESTADO); i++)
+	for(i = 0; i < sizeof(ESTADO); i++) {
 		sprintf(buffer, "%s%02x", buffer, p[i]);
+	}
 	
 	return buffer;
 }
@@ -21,8 +22,7 @@ ESTADO str2estado(char *argumentos) {
 	unsigned char *p = (unsigned char *) &e;
 	unsigned int i;
 
-	for(i = 0; i < sizeof(ESTADO); i++, argumentos += 2)
-	{
+	for(i = 0; i < sizeof(ESTADO); i++, argumentos += 2) {
 		unsigned int d;
 		sscanf(argumentos, "%2x", &d);
 		p[i] = (unsigned char) d;
@@ -34,7 +34,7 @@ ESTADO str2estado(char *argumentos) {
 void estado2ficheiro(ESTADO e) {
     FILE *fp;
 
-    fp = fopen("/var/www/html/ficheiros/state","w");
+    fp = fopen("/var/www/html/estado","w");
     fwrite(&e, sizeof(ESTADO), 1, fp);
     fclose(fp);
 }

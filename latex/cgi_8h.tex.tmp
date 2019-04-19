@@ -1,0 +1,173 @@
+\hypertarget{cgi_8h}{}\section{cgi.\+h File Reference}
+\label{cgi_8h}\index{cgi.\+h@{cgi.\+h}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+Include dependency graph for cgi.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{cgi_8h_a6852d85bc96a09e605bbf4a2dcfc7a5c}{I\+M\+A\+G\+E\+\_\+\+P\+A\+TH}~\char`\"{}http\+://localhost/imagens/\char`\"{}
+\item 
+\#define \hyperlink{cgi_8h_a93e071e1d9a809e4b5f9487700c40fd8}{C\+O\+M\+E\+C\+A\+R\+\_\+\+H\+T\+ML}~printf(\char`\"{}Content-\/Type\+: text/html\textbackslash{}n\textbackslash{}n\char`\"{})
+\item 
+\#define \hyperlink{cgi_8h_add6922252041c96ce305ff5254b816f6}{A\+B\+R\+I\+R\+\_\+\+S\+VG}(tamx,  tamy)~printf(\char`\"{}$<$svg width=\%d height=\%d$>$\textbackslash{}n\char`\"{}, tamx, tamy)
+\item 
+\#define \hyperlink{cgi_8h_a0644b71faea318f82651ca1b25db4737}{F\+E\+C\+H\+A\+R\+\_\+\+S\+VG}~printf(\char`\"{}$<$/svg$>$\textbackslash{}n\char`\"{})
+\item 
+\#define \hyperlink{cgi_8h_ab723ae3d4297ea0eb77cf3130ab15d42}{I\+M\+A\+G\+EM}(X,  Y,  \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA},  F\+I\+C\+H\+E\+I\+RO)~printf(\char`\"{}$<$image x=\%d y=\%d width=\%d height=\%d xlink\+:href=\%s /$>$\textbackslash{}n\char`\"{}, E\+S\+C\+A\+LA $\ast$ X, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA} $\ast$ Y, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA}, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA}, \hyperlink{cgi_8h_a6852d85bc96a09e605bbf4a2dcfc7a5c}{I\+M\+A\+G\+E\+\_\+\+P\+A\+TH} F\+I\+C\+H\+E\+I\+RO)
+\item 
+\#define \hyperlink{cgi_8h_a1ae379b260243788ce152a7b87ec0e03}{Q\+U\+A\+D\+R\+A\+DO}(X,  Y,  \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA},  C\+OR)~printf(\char`\"{}$<$rect x=\%d y=\%d width=\%d height=\%d fill=\%s /$>$\textbackslash{}n\char`\"{}, E\+S\+C\+A\+LA $\ast$ X, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA} $\ast$ Y, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA}, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA}, C\+OR)
+\item 
+\#define \hyperlink{cgi_8h_a6378112968e9d5d0fd3d360bd4e6554b}{Q\+U\+A\+D\+R\+A\+D\+O2}(X,  Y,  \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA},  C\+OR,  O\+P\+A\+C\+I\+D\+A\+DE,  A\+R\+E\+S\+TA)~printf(\char`\"{}$<$rect x=\%d y=\%d width=\%d height=\%d fill=\%s opacity=\%f stroke=\%s /$>$\textbackslash{}n\char`\"{}, E\+S\+C\+A\+LA $\ast$ X, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA} $\ast$ Y, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA}, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA}, C\+OR, O\+P\+A\+C\+I\+D\+A\+DE, A\+R\+E\+S\+TA)
+\item 
+\#define \hyperlink{cgi_8h_a651ff9b50c900246017d97ca07af7c04}{Q\+U\+A\+D\+R\+A\+D\+O\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+TE}(X,  Y,  \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA})~printf(\char`\"{}$<$rect x=\%d y=\%d width=\%d height=\%d opacity=0 /$>$\textbackslash{}n\char`\"{}, E\+S\+C\+A\+LA $\ast$ X, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA} $\ast$ Y, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA}, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA})
+\item 
+\#define \hyperlink{cgi_8h_a6407b1fffcc48be1f85fa95beb75a674}{T\+E\+X\+TO}(X,  Y,  \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA},  T\+XT)~printf(\char`\"{}$<$text x=\%f y=\%f$>$\textbackslash{}n\%s\textbackslash{}n$<$/text$>$\textbackslash{}n\char`\"{}, E\+S\+C\+A\+LA $\ast$ X, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA} $\ast$ Y, T\+XT)
+\item 
+\#define \hyperlink{cgi_8h_a4d82e0c3156f2bab2f120d251470623a}{A\+B\+R\+I\+R\+\_\+\+L\+I\+NK}(link)~printf(\char`\"{}$<$a xlink\+:href=\%s$>$\textbackslash{}n\char`\"{}, link)
+\item 
+\#define \hyperlink{cgi_8h_ae69156d6ba1d240d0660fe831f683958}{F\+E\+C\+H\+A\+R\+\_\+\+L\+I\+NK}~printf(\char`\"{}$<$/a$>$\textbackslash{}n\char`\"{})
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Macros úteis para gerar C\+G\+Is. 
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{cgi_8h_a4d82e0c3156f2bab2f120d251470623a}\label{cgi_8h_a4d82e0c3156f2bab2f120d251470623a}} 
+\index{cgi.\+h@{cgi.\+h}!A\+B\+R\+I\+R\+\_\+\+L\+I\+NK@{A\+B\+R\+I\+R\+\_\+\+L\+I\+NK}}
+\index{A\+B\+R\+I\+R\+\_\+\+L\+I\+NK@{A\+B\+R\+I\+R\+\_\+\+L\+I\+NK}!cgi.\+h@{cgi.\+h}}
+\subsubsection{\texorpdfstring{A\+B\+R\+I\+R\+\_\+\+L\+I\+NK}{ABRIR\_LINK}}
+{\footnotesize\ttfamily \#define A\+B\+R\+I\+R\+\_\+\+L\+I\+NK(\begin{DoxyParamCaption}\item[{}]{link }\end{DoxyParamCaption})~printf(\char`\"{}$<$a xlink\+:href=\%s$>$\textbackslash{}n\char`\"{}, link)}
+
+Macro para abrir um link. 
+\begin{DoxyParams}{Parameters}
+{\em link} & O caminho para o link \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{cgi_8h_add6922252041c96ce305ff5254b816f6}\label{cgi_8h_add6922252041c96ce305ff5254b816f6}} 
+\index{cgi.\+h@{cgi.\+h}!A\+B\+R\+I\+R\+\_\+\+S\+VG@{A\+B\+R\+I\+R\+\_\+\+S\+VG}}
+\index{A\+B\+R\+I\+R\+\_\+\+S\+VG@{A\+B\+R\+I\+R\+\_\+\+S\+VG}!cgi.\+h@{cgi.\+h}}
+\subsubsection{\texorpdfstring{A\+B\+R\+I\+R\+\_\+\+S\+VG}{ABRIR\_SVG}}
+{\footnotesize\ttfamily \#define A\+B\+R\+I\+R\+\_\+\+S\+VG(\begin{DoxyParamCaption}\item[{}]{tamx,  }\item[{}]{tamy }\end{DoxyParamCaption})~printf(\char`\"{}$<$svg width=\%d height=\%d$>$\textbackslash{}n\char`\"{}, tamx, tamy)}
+
+Macro para abrir um svg. 
+\begin{DoxyParams}{Parameters}
+{\em tamx} & O comprimento do svg \\
+\hline
+{\em tamy} & A altura do svg \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{cgi_8h_a93e071e1d9a809e4b5f9487700c40fd8}\label{cgi_8h_a93e071e1d9a809e4b5f9487700c40fd8}} 
+\index{cgi.\+h@{cgi.\+h}!C\+O\+M\+E\+C\+A\+R\+\_\+\+H\+T\+ML@{C\+O\+M\+E\+C\+A\+R\+\_\+\+H\+T\+ML}}
+\index{C\+O\+M\+E\+C\+A\+R\+\_\+\+H\+T\+ML@{C\+O\+M\+E\+C\+A\+R\+\_\+\+H\+T\+ML}!cgi.\+h@{cgi.\+h}}
+\subsubsection{\texorpdfstring{C\+O\+M\+E\+C\+A\+R\+\_\+\+H\+T\+ML}{COMECAR\_HTML}}
+{\footnotesize\ttfamily \#define C\+O\+M\+E\+C\+A\+R\+\_\+\+H\+T\+ML~printf(\char`\"{}Content-\/Type\+: text/html\textbackslash{}n\textbackslash{}n\char`\"{})}
+
+Macro para começar o html. \mbox{\Hypertarget{cgi_8h_ae69156d6ba1d240d0660fe831f683958}\label{cgi_8h_ae69156d6ba1d240d0660fe831f683958}} 
+\index{cgi.\+h@{cgi.\+h}!F\+E\+C\+H\+A\+R\+\_\+\+L\+I\+NK@{F\+E\+C\+H\+A\+R\+\_\+\+L\+I\+NK}}
+\index{F\+E\+C\+H\+A\+R\+\_\+\+L\+I\+NK@{F\+E\+C\+H\+A\+R\+\_\+\+L\+I\+NK}!cgi.\+h@{cgi.\+h}}
+\subsubsection{\texorpdfstring{F\+E\+C\+H\+A\+R\+\_\+\+L\+I\+NK}{FECHAR\_LINK}}
+{\footnotesize\ttfamily \#define F\+E\+C\+H\+A\+R\+\_\+\+L\+I\+NK~printf(\char`\"{}$<$/a$>$\textbackslash{}n\char`\"{})}
+
+Macro para fechar o link. \mbox{\Hypertarget{cgi_8h_a0644b71faea318f82651ca1b25db4737}\label{cgi_8h_a0644b71faea318f82651ca1b25db4737}} 
+\index{cgi.\+h@{cgi.\+h}!F\+E\+C\+H\+A\+R\+\_\+\+S\+VG@{F\+E\+C\+H\+A\+R\+\_\+\+S\+VG}}
+\index{F\+E\+C\+H\+A\+R\+\_\+\+S\+VG@{F\+E\+C\+H\+A\+R\+\_\+\+S\+VG}!cgi.\+h@{cgi.\+h}}
+\subsubsection{\texorpdfstring{F\+E\+C\+H\+A\+R\+\_\+\+S\+VG}{FECHAR\_SVG}}
+{\footnotesize\ttfamily \#define F\+E\+C\+H\+A\+R\+\_\+\+S\+VG~printf(\char`\"{}$<$/svg$>$\textbackslash{}n\char`\"{})}
+
+Macro para fechar um svg. \mbox{\Hypertarget{cgi_8h_a6852d85bc96a09e605bbf4a2dcfc7a5c}\label{cgi_8h_a6852d85bc96a09e605bbf4a2dcfc7a5c}} 
+\index{cgi.\+h@{cgi.\+h}!I\+M\+A\+G\+E\+\_\+\+P\+A\+TH@{I\+M\+A\+G\+E\+\_\+\+P\+A\+TH}}
+\index{I\+M\+A\+G\+E\+\_\+\+P\+A\+TH@{I\+M\+A\+G\+E\+\_\+\+P\+A\+TH}!cgi.\+h@{cgi.\+h}}
+\subsubsection{\texorpdfstring{I\+M\+A\+G\+E\+\_\+\+P\+A\+TH}{IMAGE\_PATH}}
+{\footnotesize\ttfamily \#define I\+M\+A\+G\+E\+\_\+\+P\+A\+TH~\char`\"{}http\+://localhost/imagens/\char`\"{}}
+
+Caminho para as imagens. \mbox{\Hypertarget{cgi_8h_ab723ae3d4297ea0eb77cf3130ab15d42}\label{cgi_8h_ab723ae3d4297ea0eb77cf3130ab15d42}} 
+\index{cgi.\+h@{cgi.\+h}!I\+M\+A\+G\+EM@{I\+M\+A\+G\+EM}}
+\index{I\+M\+A\+G\+EM@{I\+M\+A\+G\+EM}!cgi.\+h@{cgi.\+h}}
+\subsubsection{\texorpdfstring{I\+M\+A\+G\+EM}{IMAGEM}}
+{\footnotesize\ttfamily \#define I\+M\+A\+G\+EM(\begin{DoxyParamCaption}\item[{}]{X,  }\item[{}]{Y,  }\item[{}]{\hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA},  }\item[{}]{F\+I\+C\+H\+E\+I\+RO }\end{DoxyParamCaption})~printf(\char`\"{}$<$image x=\%d y=\%d width=\%d height=\%d xlink\+:href=\%s /$>$\textbackslash{}n\char`\"{}, E\+S\+C\+A\+LA $\ast$ X, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA} $\ast$ Y, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA}, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA}, \hyperlink{cgi_8h_a6852d85bc96a09e605bbf4a2dcfc7a5c}{I\+M\+A\+G\+E\+\_\+\+P\+A\+TH} F\+I\+C\+H\+E\+I\+RO)}
+
+Macro para criar uma imagem. 
+\begin{DoxyParams}{Parameters}
+{\em X} & A coordenada X do canto superior esquerdo \\
+\hline
+{\em Y} & A coordenada Y do canto superior esquerdo \\
+\hline
+{\em E\+S\+C\+A\+LA} & A escala da imagem \\
+\hline
+{\em F\+I\+C\+H\+E\+I\+RO} & O caminho para o link do ficheiro \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{cgi_8h_a1ae379b260243788ce152a7b87ec0e03}\label{cgi_8h_a1ae379b260243788ce152a7b87ec0e03}} 
+\index{cgi.\+h@{cgi.\+h}!Q\+U\+A\+D\+R\+A\+DO@{Q\+U\+A\+D\+R\+A\+DO}}
+\index{Q\+U\+A\+D\+R\+A\+DO@{Q\+U\+A\+D\+R\+A\+DO}!cgi.\+h@{cgi.\+h}}
+\subsubsection{\texorpdfstring{Q\+U\+A\+D\+R\+A\+DO}{QUADRADO}}
+{\footnotesize\ttfamily \#define Q\+U\+A\+D\+R\+A\+DO(\begin{DoxyParamCaption}\item[{}]{X,  }\item[{}]{Y,  }\item[{}]{\hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA},  }\item[{}]{C\+OR }\end{DoxyParamCaption})~printf(\char`\"{}$<$rect x=\%d y=\%d width=\%d height=\%d fill=\%s /$>$\textbackslash{}n\char`\"{}, E\+S\+C\+A\+LA $\ast$ X, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA} $\ast$ Y, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA}, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA}, C\+OR)}
+
+Macro para criar um quadrado. 
+\begin{DoxyParams}{Parameters}
+{\em X} & A coordenada X do canto superior esquerdo \\
+\hline
+{\em Y} & A coordenada Y do canto superior esquerdo \\
+\hline
+{\em E\+S\+C\+A\+LA} & A escala da imagem \\
+\hline
+{\em C\+OR} & A cor de preenchimento do quadrado \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{cgi_8h_a6378112968e9d5d0fd3d360bd4e6554b}\label{cgi_8h_a6378112968e9d5d0fd3d360bd4e6554b}} 
+\index{cgi.\+h@{cgi.\+h}!Q\+U\+A\+D\+R\+A\+D\+O2@{Q\+U\+A\+D\+R\+A\+D\+O2}}
+\index{Q\+U\+A\+D\+R\+A\+D\+O2@{Q\+U\+A\+D\+R\+A\+D\+O2}!cgi.\+h@{cgi.\+h}}
+\subsubsection{\texorpdfstring{Q\+U\+A\+D\+R\+A\+D\+O2}{QUADRADO2}}
+{\footnotesize\ttfamily \#define Q\+U\+A\+D\+R\+A\+D\+O2(\begin{DoxyParamCaption}\item[{}]{X,  }\item[{}]{Y,  }\item[{}]{\hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA},  }\item[{}]{C\+OR,  }\item[{}]{O\+P\+A\+C\+I\+D\+A\+DE,  }\item[{}]{A\+R\+E\+S\+TA }\end{DoxyParamCaption})~printf(\char`\"{}$<$rect x=\%d y=\%d width=\%d height=\%d fill=\%s opacity=\%f stroke=\%s /$>$\textbackslash{}n\char`\"{}, E\+S\+C\+A\+LA $\ast$ X, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA} $\ast$ Y, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA}, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA}, C\+OR, O\+P\+A\+C\+I\+D\+A\+DE, A\+R\+E\+S\+TA)}
+
+Macro para criar um quadrado que vai assinalar as casas para as quais o jogador pode se mover. 
+\begin{DoxyParams}{Parameters}
+{\em X} & A coordenada x \\
+\hline
+{\em Y} & A coordenada y \\
+\hline
+{\em E\+S\+C\+A\+LA} & Tamanho do quadrado \\
+\hline
+{\em C\+OR} & A cor do quadrado \\
+\hline
+{\em O\+P\+A\+C\+I\+D\+A\+DE} & O quão opacado queremos que o quadrado seja \\
+\hline
+{\em A\+R\+E\+S\+TA} & Cor da aresta do quadrado \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{cgi_8h_a651ff9b50c900246017d97ca07af7c04}\label{cgi_8h_a651ff9b50c900246017d97ca07af7c04}} 
+\index{cgi.\+h@{cgi.\+h}!Q\+U\+A\+D\+R\+A\+D\+O\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+TE@{Q\+U\+A\+D\+R\+A\+D\+O\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+TE}}
+\index{Q\+U\+A\+D\+R\+A\+D\+O\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+TE@{Q\+U\+A\+D\+R\+A\+D\+O\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+TE}!cgi.\+h@{cgi.\+h}}
+\subsubsection{\texorpdfstring{Q\+U\+A\+D\+R\+A\+D\+O\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+TE}{QUADRADO\_TRANSPARENTE}}
+{\footnotesize\ttfamily \#define Q\+U\+A\+D\+R\+A\+D\+O\+\_\+\+T\+R\+A\+N\+S\+P\+A\+R\+E\+N\+TE(\begin{DoxyParamCaption}\item[{}]{X,  }\item[{}]{Y,  }\item[{}]{\hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA} }\end{DoxyParamCaption})~printf(\char`\"{}$<$rect x=\%d y=\%d width=\%d height=\%d opacity=0 /$>$\textbackslash{}n\char`\"{}, E\+S\+C\+A\+LA $\ast$ X, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA} $\ast$ Y, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA}, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA})}
+
+Macro para criar um quadrado. 
+\begin{DoxyParams}{Parameters}
+{\em X} & A coordenada X do canto superior esquerdo \\
+\hline
+{\em Y} & A coordenada Y do canto superior esquerdo \\
+\hline
+{\em E\+S\+C\+A\+LA} & A escala da imagem \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{cgi_8h_a6407b1fffcc48be1f85fa95beb75a674}\label{cgi_8h_a6407b1fffcc48be1f85fa95beb75a674}} 
+\index{cgi.\+h@{cgi.\+h}!T\+E\+X\+TO@{T\+E\+X\+TO}}
+\index{T\+E\+X\+TO@{T\+E\+X\+TO}!cgi.\+h@{cgi.\+h}}
+\subsubsection{\texorpdfstring{T\+E\+X\+TO}{TEXTO}}
+{\footnotesize\ttfamily \#define T\+E\+X\+TO(\begin{DoxyParamCaption}\item[{}]{X,  }\item[{}]{Y,  }\item[{}]{\hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA},  }\item[{}]{T\+XT }\end{DoxyParamCaption})~printf(\char`\"{}$<$text x=\%f y=\%f$>$\textbackslash{}n\%s\textbackslash{}n$<$/text$>$\textbackslash{}n\char`\"{}, E\+S\+C\+A\+LA $\ast$ X, \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA} $\ast$ Y, T\+XT)}
+
+Macro para dar print a um determinado texto. 
+\begin{DoxyParams}{Parameters}
+{\em X} & coordenada x \\
+\hline
+{\em Y} & coordenada y \\
+\hline
+{\em E\+S\+C\+A\+LA} & tamanho do texto \\
+\hline
+{\em T\+XT} & string com o texto \\
+\hline
+\end{DoxyParams}

@@ -1,0 +1,518 @@
+\hypertarget{RogueLike_8c}{}\section{Rogue\+Like.\+c File Reference}
+\label{RogueLike_8c}\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+{\ttfamily \#include \char`\"{}cgi.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}estado.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+Include dependency graph for Rogue\+Like.\+c\+:
+% FIG 0
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}{E\+S\+C\+A\+LA}~50
+\item 
+\#define \hyperlink{RogueLike_8c_a392fb874e547e582e9c66a08a1f23326}{M\+AX}~10240
+\item 
+\#define \hyperlink{RogueLike_8c_a70ed59adcb4159ac551058053e649640}{S\+I\+ZE}~10
+\item 
+\#define \hyperlink{RogueLike_8c_af38cdf6c29ce6fd7bbfe6ab8dfcc4f1e}{N\+U\+M\+\_\+\+O\+BS}~20
+\item 
+\#define \hyperlink{RogueLike_8c_ac173715006925447d76aa3292208ca48}{N\+U\+M\+\_\+\+I\+NI}~10
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{RogueLike_8c_a668754b8dbe9132f961503c70581ed32}{insere} (int x, int v\mbox{[}5\mbox{]})
+\item 
+int \hyperlink{RogueLike_8c_aecfeebf2d85baa822120aa7cc9587d8d}{posicao\+\_\+valida} (int x, int y)
+\item 
+int \hyperlink{RogueLike_8c_a542339c0b09a33a4fa81f33f90e10f5b}{mesma\+\_\+posicao} (\hyperlink{estado_8h_a55b3f4b56938eeb8fa5e8f9c07baf1b0}{P\+O\+S\+I\+C\+AO} p, int x, int y)
+\item 
+int \hyperlink{RogueLike_8c_a1375e56682bd0e622398faac1c311e0f}{posicao\+\_\+inimigo} (\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} e, int x, int y)
+\item 
+int \hyperlink{RogueLike_8c_a8cfeeeafb039c0021b9bcef339c1b857}{posicao\+\_\+saida} (\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} e, int x, int y)
+\item 
+void \hyperlink{RogueLike_8c_a62800938316cc413406dda5931d3ed0e}{colour} (int x, int y)
+\item 
+void \hyperlink{RogueLike_8c_a315a96f2da5541e7771aed52cec2abda}{colour2} (int x, int y)
+\item 
+void \hyperlink{RogueLike_8c_a9d4dedcfdff919b42bd113c8ebd2e734}{quadrado} (int x, int y)
+\item 
+void \hyperlink{RogueLike_8c_a0a6096a8905a46fddf4c615d0c1894c5}{tabuleiro} ()
+\item 
+int \hyperlink{RogueLike_8c_a587c8f2032b21e720b38dcfad5445c25}{invariante} (\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} e, int x, int y)
+\item 
+\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} \hyperlink{RogueLike_8c_af332af5fddcb3b507553ac15cd09329a}{inicializar} ()
+\item 
+\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} \hyperlink{RogueLike_8c_a5ca0281b9b20b685af3dd6a70aabd7d5}{novo\+\_\+nivel} (\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} e)
+\item 
+\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} \hyperlink{RogueLike_8c_ac6ac3f99288653aa0ad4b8068f4e3952}{movimento\+\_\+inimigos} (\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} e)
+\item 
+void \hyperlink{RogueLike_8c_a85d5895862b1828b34aeffe3cf82d108}{movimento} (\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} e, int dx, int dy)
+\item 
+void \hyperlink{RogueLike_8c_a865654519020a13a3765c622dba1ce8c}{imprime\+\_\+movimentos\+\_\+jogador} (\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} e)
+\item 
+void \hyperlink{RogueLike_8c_aa64ff848d1ed3445837674da64d37a2f}{imprime\+\_\+jogador} (\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} e)
+\item 
+void \hyperlink{RogueLike_8c_acbf44e3443a46959b8c4db065fe52934}{imprime\+\_\+vida\+\_\+jogador} (\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} e)
+\item 
+void \hyperlink{RogueLike_8c_a5d67391dc0c169abb4557a59732d9654}{imprime\+\_\+inimigos} (\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} e)
+\item 
+void \hyperlink{RogueLike_8c_a1de08d6b9c0e1bd3dda6e535166c647b}{imprime\+\_\+obstaculo} (\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} e)
+\item 
+void \hyperlink{RogueLike_8c_af72f00ee24f2b0b2528c0e3cd145d39c}{imprime\+\_\+saida} (\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} e)
+\item 
+void \hyperlink{RogueLike_8c_a0f4adfeedfa2e6146e6ce15db0a7a46f}{imprime\+\_\+score\+\_\+web} ()
+\item 
+void \hyperlink{RogueLike_8c_abe312a60b5379326cfe62c53b9265883}{imprime\+\_\+score\+\_\+ficheiro} (int score)
+\item 
+int \hyperlink{RogueLike_8c_a0977790632b74fa57087fd4f7534bd1a}{menor\+\_\+valor\+\_\+ranking} ()
+\item 
+void \hyperlink{RogueLike_8c_a789f77db85f0126166763276e3eeab61}{perdeste1} ()
+\item 
+void \hyperlink{RogueLike_8c_a752c8f99530fcffddce3acc971e473d9}{perdeste2} ()
+\item 
+\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} \hyperlink{RogueLike_8c_a3abcf86b5060b8033a11a5dd5eb97ec2}{ler\+\_\+estado} (char $\ast$args)
+\item 
+\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} \hyperlink{RogueLike_8c_aa470212869595b5080844667a4e77792}{move\+\_\+jog} (\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} e)
+\item 
+\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} \hyperlink{RogueLike_8c_ac4f363e22827ddbd8a75df7fd70bf1f6}{mata\+\_\+inimigos} (\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} e)
+\item 
+\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} \hyperlink{RogueLike_8c_a6924777e688e053ad8e8a925ca0719e8}{nova\+\_\+acao} (\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} e)
+\item 
+int \hyperlink{RogueLike_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{main} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Ficheiro com as funções relativas às funcionalidades do programa Rogue\+Like. 
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}\label{RogueLike_8c_a7e7f9ccd7feb0127c199885b51bb8772}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!E\+S\+C\+A\+LA@{E\+S\+C\+A\+LA}}
+\index{E\+S\+C\+A\+LA@{E\+S\+C\+A\+LA}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{E\+S\+C\+A\+LA}{ESCALA}}
+{\footnotesize\ttfamily \#define E\+S\+C\+A\+LA~50}
+
+Escala da respetiva imagem. \mbox{\Hypertarget{RogueLike_8c_a392fb874e547e582e9c66a08a1f23326}\label{RogueLike_8c_a392fb874e547e582e9c66a08a1f23326}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!M\+AX@{M\+AX}}
+\index{M\+AX@{M\+AX}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{M\+AX}{MAX}}
+{\footnotesize\ttfamily \#define M\+AX~10240}
+
+Valor que indica o tamanho máximo do array associado a um link. \mbox{\Hypertarget{RogueLike_8c_ac173715006925447d76aa3292208ca48}\label{RogueLike_8c_ac173715006925447d76aa3292208ca48}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!N\+U\+M\+\_\+\+I\+NI@{N\+U\+M\+\_\+\+I\+NI}}
+\index{N\+U\+M\+\_\+\+I\+NI@{N\+U\+M\+\_\+\+I\+NI}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{N\+U\+M\+\_\+\+I\+NI}{NUM\_INI}}
+{\footnotesize\ttfamily \#define N\+U\+M\+\_\+\+I\+NI~10}
+
+Nº de inimigos. \mbox{\Hypertarget{RogueLike_8c_af38cdf6c29ce6fd7bbfe6ab8dfcc4f1e}\label{RogueLike_8c_af38cdf6c29ce6fd7bbfe6ab8dfcc4f1e}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!N\+U\+M\+\_\+\+O\+BS@{N\+U\+M\+\_\+\+O\+BS}}
+\index{N\+U\+M\+\_\+\+O\+BS@{N\+U\+M\+\_\+\+O\+BS}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{N\+U\+M\+\_\+\+O\+BS}{NUM\_OBS}}
+{\footnotesize\ttfamily \#define N\+U\+M\+\_\+\+O\+BS~20}
+
+Nº de obstáculos. \mbox{\Hypertarget{RogueLike_8c_a70ed59adcb4159ac551058053e649640}\label{RogueLike_8c_a70ed59adcb4159ac551058053e649640}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!S\+I\+ZE@{S\+I\+ZE}}
+\index{S\+I\+ZE@{S\+I\+ZE}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{S\+I\+ZE}{SIZE}}
+{\footnotesize\ttfamily \#define S\+I\+ZE~10}
+
+Dimensão do tabuleiro. 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{RogueLike_8c_a62800938316cc413406dda5931d3ed0e}\label{RogueLike_8c_a62800938316cc413406dda5931d3ed0e}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!colour@{colour}}
+\index{colour@{colour}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{colour()}{colour()}}
+{\footnotesize\ttfamily void colour (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+Função que vai colorir a/as quadrícula/as para onde é possivel o jogador movimentar-\/se. 
+\begin{DoxyParams}{Parameters}
+{\em x} & Abcissa do ponto \\
+\hline
+{\em y} & Ordenada do ponto \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{RogueLike_8c_a315a96f2da5541e7771aed52cec2abda}\label{RogueLike_8c_a315a96f2da5541e7771aed52cec2abda}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!colour2@{colour2}}
+\index{colour2@{colour2}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{colour2()}{colour2()}}
+{\footnotesize\ttfamily void colour2 (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+Função que vai colorir a/as quadricula/as onde estão os inimgos possiveis de matar. 
+\begin{DoxyParams}{Parameters}
+{\em x} & Abcissa do ponto \\
+\hline
+{\em y} & Ordenada do ponto \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{RogueLike_8c_a5d67391dc0c169abb4557a59732d9654}\label{RogueLike_8c_a5d67391dc0c169abb4557a59732d9654}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!imprime\+\_\+inimigos@{imprime\+\_\+inimigos}}
+\index{imprime\+\_\+inimigos@{imprime\+\_\+inimigos}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{imprime\+\_\+inimigos()}{imprime\_inimigos()}}
+{\footnotesize\ttfamily void imprime\+\_\+inimigos (\begin{DoxyParamCaption}\item[{\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO}}]{e }\end{DoxyParamCaption})}
+
+Função que imprime as imagens dos inimigos no tabuleiro. 
+\begin{DoxyParams}{Parameters}
+{\em Estado} & atual \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{RogueLike_8c_aa64ff848d1ed3445837674da64d37a2f}\label{RogueLike_8c_aa64ff848d1ed3445837674da64d37a2f}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!imprime\+\_\+jogador@{imprime\+\_\+jogador}}
+\index{imprime\+\_\+jogador@{imprime\+\_\+jogador}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{imprime\+\_\+jogador()}{imprime\_jogador()}}
+{\footnotesize\ttfamily void imprime\+\_\+jogador (\begin{DoxyParamCaption}\item[{\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO}}]{e }\end{DoxyParamCaption})}
+
+Função que imprime a imagem do jogador no tabuleiro e as possivéis jogadas do mesmo. 
+\begin{DoxyParams}{Parameters}
+{\em Estado} & atual \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{RogueLike_8c_a865654519020a13a3765c622dba1ce8c}\label{RogueLike_8c_a865654519020a13a3765c622dba1ce8c}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!imprime\+\_\+movimentos\+\_\+jogador@{imprime\+\_\+movimentos\+\_\+jogador}}
+\index{imprime\+\_\+movimentos\+\_\+jogador@{imprime\+\_\+movimentos\+\_\+jogador}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{imprime\+\_\+movimentos\+\_\+jogador()}{imprime\_movimentos\_jogador()}}
+{\footnotesize\ttfamily void imprime\+\_\+movimentos\+\_\+jogador (\begin{DoxyParamCaption}\item[{\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO}}]{e }\end{DoxyParamCaption})}
+
+Função que averigua o ponto de situação de todas as quadrículas para onde o jogador se pode movimentar. Nota\+: O jogador pode-\/se deslocar para os lados ou para cima/baixo ou nas diagonais. 
+\begin{DoxyParams}{Parameters}
+{\em Estado} & atual \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{RogueLike_8c_a1de08d6b9c0e1bd3dda6e535166c647b}\label{RogueLike_8c_a1de08d6b9c0e1bd3dda6e535166c647b}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!imprime\+\_\+obstaculo@{imprime\+\_\+obstaculo}}
+\index{imprime\+\_\+obstaculo@{imprime\+\_\+obstaculo}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{imprime\+\_\+obstaculo()}{imprime\_obstaculo()}}
+{\footnotesize\ttfamily void imprime\+\_\+obstaculo (\begin{DoxyParamCaption}\item[{\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO}}]{e }\end{DoxyParamCaption})}
+
+Função que imprime as imagens dos obstáculos no tabuleiro. 
+\begin{DoxyParams}{Parameters}
+{\em Estado} & atual \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{RogueLike_8c_af72f00ee24f2b0b2528c0e3cd145d39c}\label{RogueLike_8c_af72f00ee24f2b0b2528c0e3cd145d39c}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!imprime\+\_\+saida@{imprime\+\_\+saida}}
+\index{imprime\+\_\+saida@{imprime\+\_\+saida}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{imprime\+\_\+saida()}{imprime\_saida()}}
+{\footnotesize\ttfamily void imprime\+\_\+saida (\begin{DoxyParamCaption}\item[{\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO}}]{e }\end{DoxyParamCaption})}
+
+Função que imprime a imagem da saída no tabuleiro. 
+\begin{DoxyParams}{Parameters}
+{\em Estado} & atual \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{RogueLike_8c_abe312a60b5379326cfe62c53b9265883}\label{RogueLike_8c_abe312a60b5379326cfe62c53b9265883}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!imprime\+\_\+score\+\_\+ficheiro@{imprime\+\_\+score\+\_\+ficheiro}}
+\index{imprime\+\_\+score\+\_\+ficheiro@{imprime\+\_\+score\+\_\+ficheiro}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{imprime\+\_\+score\+\_\+ficheiro()}{imprime\_score\_ficheiro()}}
+{\footnotesize\ttfamily void imprime\+\_\+score\+\_\+ficheiro (\begin{DoxyParamCaption}\item[{int}]{score }\end{DoxyParamCaption})}
+
+Função que, dada uma pontuação, atualiza o top 5 das pontuações imprimindo o mesmo no ficheiro \char`\"{}score\char`\"{}. 
+\begin{DoxyParams}{Parameters}
+{\em score} & Pontuação \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{RogueLike_8c_a0f4adfeedfa2e6146e6ce15db0a7a46f}\label{RogueLike_8c_a0f4adfeedfa2e6146e6ce15db0a7a46f}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!imprime\+\_\+score\+\_\+web@{imprime\+\_\+score\+\_\+web}}
+\index{imprime\+\_\+score\+\_\+web@{imprime\+\_\+score\+\_\+web}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{imprime\+\_\+score\+\_\+web()}{imprime\_score\_web()}}
+{\footnotesize\ttfamily void imprime\+\_\+score\+\_\+web (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Função que imprime o top 5 das pontuações na interface do jogo. \mbox{\Hypertarget{RogueLike_8c_acbf44e3443a46959b8c4db065fe52934}\label{RogueLike_8c_acbf44e3443a46959b8c4db065fe52934}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!imprime\+\_\+vida\+\_\+jogador@{imprime\+\_\+vida\+\_\+jogador}}
+\index{imprime\+\_\+vida\+\_\+jogador@{imprime\+\_\+vida\+\_\+jogador}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{imprime\+\_\+vida\+\_\+jogador()}{imprime\_vida\_jogador()}}
+{\footnotesize\ttfamily void imprime\+\_\+vida\+\_\+jogador (\begin{DoxyParamCaption}\item[{\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO}}]{e }\end{DoxyParamCaption})}
+
+Função que imprime as imagens das vidas do jogador na interface do jogo. 
+\begin{DoxyParams}{Parameters}
+{\em Estado} & atual \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{RogueLike_8c_af332af5fddcb3b507553ac15cd09329a}\label{RogueLike_8c_af332af5fddcb3b507553ac15cd09329a}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!inicializar@{inicializar}}
+\index{inicializar@{inicializar}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{inicializar()}{inicializar()}}
+{\footnotesize\ttfamily \hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} inicializar (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Função que ...~\newline
+--$>$ gera aleatoriamente as posições dos inimigos e dos obstáculos;~\newline
+--$>$ gera aleatoriamente a posição da saída de um determinado nível ao longo da 1ª linha do tabuleiro;~\newline
+--$>$ fixa na posição (5,9) o ponto de partida do jogador;~\newline
+--$>$ define a vida inicial do jogador;~\newline
+--$>$ define o nível inicial do jogo;~\newline
+--$>$ define a pontuação inicial do jogador. \begin{DoxyReturn}{Returns}
+Estado. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{RogueLike_8c_a668754b8dbe9132f961503c70581ed32}\label{RogueLike_8c_a668754b8dbe9132f961503c70581ed32}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!insere@{insere}}
+\index{insere@{insere}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{insere()}{insere()}}
+{\footnotesize\ttfamily void insere (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{v\mbox{[}5\mbox{]} }\end{DoxyParamCaption})}
+
+Função que insere um elemento x num array de inteiros previamente ordenado. 
+\begin{DoxyParams}{Parameters}
+{\em x} & Elemento a ser inserido \\
+\hline
+{\em v} & Vetor relativo ao top 5 de pontuações \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{RogueLike_8c_a587c8f2032b21e720b38dcfad5445c25}\label{RogueLike_8c_a587c8f2032b21e720b38dcfad5445c25}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!invariante@{invariante}}
+\index{invariante@{invariante}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{invariante()}{invariante()}}
+{\footnotesize\ttfamily int invariante (\begin{DoxyParamCaption}\item[{\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO}}]{e,  }\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+Função que verifica se a posição (x,y) está ocupada pelo jogador ou por um inimigo ou por um obstáculo. 
+\begin{DoxyParams}{Parameters}
+{\em e} & Estado atual do programa \\
+\hline
+{\em x} & Abcissa do ponto \\
+\hline
+{\em y} & Ordenada do ponto \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 -\/$>$ Livre;~\newline
+ 1 -\/$>$ Ocupado. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{RogueLike_8c_a3abcf86b5060b8033a11a5dd5eb97ec2}\label{RogueLike_8c_a3abcf86b5060b8033a11a5dd5eb97ec2}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!ler\+\_\+estado@{ler\+\_\+estado}}
+\index{ler\+\_\+estado@{ler\+\_\+estado}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{ler\+\_\+estado()}{ler\_estado()}}
+{\footnotesize\ttfamily \hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} ler\+\_\+estado (\begin{DoxyParamCaption}\item[{char $\ast$}]{args }\end{DoxyParamCaption})}
+
+Função que lê o estado do programa. 
+\begin{DoxyParams}{Parameters}
+{\em args} & String do estado \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Estado. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{RogueLike_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{RogueLike_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!main@{main}}
+\index{main@{main}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Função main do programa Rogue\+Like. \begin{DoxyReturn}{Returns}
+0 
+\end{DoxyReturn}
+\mbox{\Hypertarget{RogueLike_8c_ac4f363e22827ddbd8a75df7fd70bf1f6}\label{RogueLike_8c_ac4f363e22827ddbd8a75df7fd70bf1f6}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!mata\+\_\+inimigos@{mata\+\_\+inimigos}}
+\index{mata\+\_\+inimigos@{mata\+\_\+inimigos}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{mata\+\_\+inimigos()}{mata\_inimigos()}}
+{\footnotesize\ttfamily \hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} mata\+\_\+inimigos (\begin{DoxyParamCaption}\item[{\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO}}]{e }\end{DoxyParamCaption})}
+
+Função que trata de matar os inimigos, removendo-\/os do tabuleiro, incrementando o score. 
+\begin{DoxyParams}{Parameters}
+{\em e} & Estado atual \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Estado novo. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{RogueLike_8c_a0977790632b74fa57087fd4f7534bd1a}\label{RogueLike_8c_a0977790632b74fa57087fd4f7534bd1a}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!menor\+\_\+valor\+\_\+ranking@{menor\+\_\+valor\+\_\+ranking}}
+\index{menor\+\_\+valor\+\_\+ranking@{menor\+\_\+valor\+\_\+ranking}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{menor\+\_\+valor\+\_\+ranking()}{menor\_valor\_ranking()}}
+{\footnotesize\ttfamily int menor\+\_\+valor\+\_\+ranking (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Função que extrai o menor valor do top 5 das pontuações. \begin{DoxyReturn}{Returns}
+Menor valor do top 5 das pontuações. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{RogueLike_8c_a542339c0b09a33a4fa81f33f90e10f5b}\label{RogueLike_8c_a542339c0b09a33a4fa81f33f90e10f5b}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!mesma\+\_\+posicao@{mesma\+\_\+posicao}}
+\index{mesma\+\_\+posicao@{mesma\+\_\+posicao}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{mesma\+\_\+posicao()}{mesma\_posicao()}}
+{\footnotesize\ttfamily int mesma\+\_\+posicao (\begin{DoxyParamCaption}\item[{\hyperlink{estado_8h_a55b3f4b56938eeb8fa5e8f9c07baf1b0}{P\+O\+S\+I\+C\+AO}}]{p,  }\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+Função que verifica se dois pontos têm as mesmas coordenadas. 
+\begin{DoxyParams}{Parameters}
+{\em p} & Ponto 1 \\
+\hline
+{\em x} & Abcissa do ponto 2 \\
+\hline
+{\em y} & Ordenada do ponto 2 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 --$>$ False;~\newline
+ 1 --$>$ True. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{RogueLike_8c_aa470212869595b5080844667a4e77792}\label{RogueLike_8c_aa470212869595b5080844667a4e77792}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!move\+\_\+jog@{move\+\_\+jog}}
+\index{move\+\_\+jog@{move\+\_\+jog}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{move\+\_\+jog()}{move\_jog()}}
+{\footnotesize\ttfamily \hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} move\+\_\+jog (\begin{DoxyParamCaption}\item[{\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO}}]{e }\end{DoxyParamCaption})}
+
+Função que trata de deslocar o jogador para as cordenadas indicadas. 
+\begin{DoxyParams}{Parameters}
+{\em e} & Estado atual \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Estado novo. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{RogueLike_8c_a85d5895862b1828b34aeffe3cf82d108}\label{RogueLike_8c_a85d5895862b1828b34aeffe3cf82d108}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!movimento@{movimento}}
+\index{movimento@{movimento}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{movimento()}{movimento()}}
+{\footnotesize\ttfamily void movimento (\begin{DoxyParamCaption}\item[{\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO}}]{e,  }\item[{int}]{dx,  }\item[{int}]{dy }\end{DoxyParamCaption})}
+
+Função que, dada uma posição possível do jogador, sinaliza-\/a com uma determinada cor e cria um link com a informação do futuro estado. 
+\begin{DoxyParams}{Parameters}
+{\em Estado} & atual \\
+\hline
+{\em dx} & Deslocação na abcissa do ponto atual do jogador \\
+\hline
+{\em dy} & Deslocação na ordenada do ponto atual do jogador \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{RogueLike_8c_ac6ac3f99288653aa0ad4b8068f4e3952}\label{RogueLike_8c_ac6ac3f99288653aa0ad4b8068f4e3952}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!movimento\+\_\+inimigos@{movimento\+\_\+inimigos}}
+\index{movimento\+\_\+inimigos@{movimento\+\_\+inimigos}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{movimento\+\_\+inimigos()}{movimento\_inimigos()}}
+{\footnotesize\ttfamily \hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} movimento\+\_\+inimigos (\begin{DoxyParamCaption}\item[{\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO}}]{e }\end{DoxyParamCaption})}
+
+Função que desloca os inimigos de acordo com a posição do jogador. 
+\begin{DoxyParams}{Parameters}
+{\em e} & Estado atual \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Estado novo. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{RogueLike_8c_a6924777e688e053ad8e8a925ca0719e8}\label{RogueLike_8c_a6924777e688e053ad8e8a925ca0719e8}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!nova\+\_\+acao@{nova\+\_\+acao}}
+\index{nova\+\_\+acao@{nova\+\_\+acao}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{nova\+\_\+acao()}{nova\_acao()}}
+{\footnotesize\ttfamily \hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} nova\+\_\+acao (\begin{DoxyParamCaption}\item[{\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO}}]{e }\end{DoxyParamCaption})}
+
+Função que consoante a ação do jogador, realiza uma determinada tarefa. 
+\begin{DoxyParams}{Parameters}
+{\em e} & Estado atual \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Estado novo. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{RogueLike_8c_a5ca0281b9b20b685af3dd6a70aabd7d5}\label{RogueLike_8c_a5ca0281b9b20b685af3dd6a70aabd7d5}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!novo\+\_\+nivel@{novo\+\_\+nivel}}
+\index{novo\+\_\+nivel@{novo\+\_\+nivel}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{novo\+\_\+nivel()}{novo\_nivel()}}
+{\footnotesize\ttfamily \hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO} novo\+\_\+nivel (\begin{DoxyParamCaption}\item[{\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO}}]{e }\end{DoxyParamCaption})}
+
+Função que ...~\newline
+--$>$ gera aleatoriamente as posições dos inimigos e dos obstáculos;~\newline
+--$>$ gera aleatoriamente a posição da saída de um determinado nível ao longo da 1ª linha do tabuleiro;~\newline
+--$>$ fixa na posição (5,9) o ponto de partida do jogador;~\newline
+--$>$ atualiza a vida inicial do jogador;~\newline
+--$>$ atualiza o nível inicial do jogo;~\newline
+--$>$ atualiza a pontuação inicial do jogador.~\newline
+~\newline
+Nota\+: Esta função começa a ser utilizada a partir da passagem do 1º para o 2º nivel. 
+\begin{DoxyParams}{Parameters}
+{\em e} & Estado atual \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Estado novo. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{RogueLike_8c_a789f77db85f0126166763276e3eeab61}\label{RogueLike_8c_a789f77db85f0126166763276e3eeab61}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!perdeste1@{perdeste1}}
+\index{perdeste1@{perdeste1}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{perdeste1()}{perdeste1()}}
+{\footnotesize\ttfamily void perdeste1 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Função que mostra ao jogador que perdeu num determinado nível do jogo.~\newline
+Apresentação do top 5 das pontuações dado que a sua pontuação foi superior ou igual à mais baixa.~\newline
+Esta informação é exibida na interface do jogo. \mbox{\Hypertarget{RogueLike_8c_a752c8f99530fcffddce3acc971e473d9}\label{RogueLike_8c_a752c8f99530fcffddce3acc971e473d9}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!perdeste2@{perdeste2}}
+\index{perdeste2@{perdeste2}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{perdeste2()}{perdeste2()}}
+{\footnotesize\ttfamily void perdeste2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Função que mostra ao jogador que perdeu num determinado nível do jogo.~\newline
+Não é apresentadoo top 5 das pontuações dado que a sua pontuação foi inferior à mais baixa.~\newline
+Esta informação é exibida na interface do jogo. \mbox{\Hypertarget{RogueLike_8c_a1375e56682bd0e622398faac1c311e0f}\label{RogueLike_8c_a1375e56682bd0e622398faac1c311e0f}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!posicao\+\_\+inimigo@{posicao\+\_\+inimigo}}
+\index{posicao\+\_\+inimigo@{posicao\+\_\+inimigo}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{posicao\+\_\+inimigo()}{posicao\_inimigo()}}
+{\footnotesize\ttfamily int posicao\+\_\+inimigo (\begin{DoxyParamCaption}\item[{\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO}}]{e,  }\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+Função que verifica se a posição (x,y) está ocupada por um inimigo. 
+\begin{DoxyParams}{Parameters}
+{\em e} & Estado atual do programa \\
+\hline
+{\em x} & Abcissa do ponto \\
+\hline
+{\em y} & Ordenada do ponto \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 --$>$ False;~\newline
+ 1 --$>$ True. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{RogueLike_8c_a8cfeeeafb039c0021b9bcef339c1b857}\label{RogueLike_8c_a8cfeeeafb039c0021b9bcef339c1b857}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!posicao\+\_\+saida@{posicao\+\_\+saida}}
+\index{posicao\+\_\+saida@{posicao\+\_\+saida}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{posicao\+\_\+saida()}{posicao\_saida()}}
+{\footnotesize\ttfamily int posicao\+\_\+saida (\begin{DoxyParamCaption}\item[{\hyperlink{estado_8h_a857f2529d823a22e6f4a81cf21fb810f}{E\+S\+T\+A\+DO}}]{e,  }\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+Função que verifica se a posição (x,y) coincide com a saída de um determinado nível do jogo. 
+\begin{DoxyParams}{Parameters}
+{\em e} & Estado atual do programa \\
+\hline
+{\em x} & Abcissa do ponto \\
+\hline
+{\em y} & Ordenada do ponto \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 --$>$ False;~\newline
+ 1 --$>$ True. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{RogueLike_8c_aecfeebf2d85baa822120aa7cc9587d8d}\label{RogueLike_8c_aecfeebf2d85baa822120aa7cc9587d8d}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!posicao\+\_\+valida@{posicao\+\_\+valida}}
+\index{posicao\+\_\+valida@{posicao\+\_\+valida}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{posicao\+\_\+valida()}{posicao\_valida()}}
+{\footnotesize\ttfamily int posicao\+\_\+valida (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+Função que verifica se o ponto (x,y) representa uma coordenada válida no tabuleiro. 
+\begin{DoxyParams}{Parameters}
+{\em x} & Abcissa do ponto \\
+\hline
+{\em y} & Ordenada do ponto \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 --$>$ False;~\newline
+ 1 --$>$ True. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{RogueLike_8c_a9d4dedcfdff919b42bd113c8ebd2e734}\label{RogueLike_8c_a9d4dedcfdff919b42bd113c8ebd2e734}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!quadrado@{quadrado}}
+\index{quadrado@{quadrado}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{quadrado()}{quadrado()}}
+{\footnotesize\ttfamily void quadrado (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+Função que gera quadrículas com cores alternadas. 
+\begin{DoxyParams}{Parameters}
+{\em x} & Abcissa do ponto \\
+\hline
+{\em y} & Ordenada do ponto \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{RogueLike_8c_a0a6096a8905a46fddf4c615d0c1894c5}\label{RogueLike_8c_a0a6096a8905a46fddf4c615d0c1894c5}} 
+\index{Rogue\+Like.\+c@{Rogue\+Like.\+c}!tabuleiro@{tabuleiro}}
+\index{tabuleiro@{tabuleiro}!Rogue\+Like.\+c@{Rogue\+Like.\+c}}
+\subsubsection{\texorpdfstring{tabuleiro()}{tabuleiro()}}
+{\footnotesize\ttfamily void tabuleiro (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Função que gera o tabuleiro de jogo. 

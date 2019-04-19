@@ -77,7 +77,7 @@ char *estado2str(ESTADO e);
 ESTADO str2estado(char *argumentos);
 
 /**
- * Função que grava o estado no ficheiro "state".
+ * Função que grava o estado no ficheiro "estado".
  * @param e Estado
  */
 void estado2ficheiro(ESTADO e);
