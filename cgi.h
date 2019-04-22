@@ -11,7 +11,7 @@
 /**
 * Caminho para as imagens.
 */
-#define IMAGE_PATH												"http://localhost/imagens/"
+#define IMAGE_PATH												"http://localhost/Imagens/"
 
 /**
  * Macro para começar o html.
