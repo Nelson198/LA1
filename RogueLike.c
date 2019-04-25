@@ -14,6 +14,13 @@
 #include <time.h>
 
 /**
+ * Função que devolve o sinal de um valor.
+ * @param x Valor
+ * @return Sinal do valor.
+ */ 
+#define sign(x) (x > 0) ? 1 : ((x < 0) ? -1 : 0)
+
+/**
  * Escala da respetiva imagem.
  */
 #define ESCALA 50
@@ -101,7 +108,7 @@ int tem_jogador(ESTADO e, int x, int y) {
  */
 int tem_inimigo(ESTADO e, int x, int y) {
 	for(int i = 0; i < e.num_inimigos; i++) {
-		if(mesma_posicao(e.inimigo[i], x, y)) {
+		if(mesma_posicao(e.inimigos[i], x, y)) {
 			return 1;
 		}
 	}
@@ -118,11 +125,23 @@ int tem_inimigo(ESTADO e, int x, int y) {
  */
 int tem_obstaculo(ESTADO e, int x, int y) {
 	for(int i = 0; i < e.num_obstaculos; i++) {
-		if(mesma_posicao(e.obstaculo[i], x, y)) {
+		if(mesma_posicao(e.obstaculos[i], x, y)) {
 			return 1;
 		}
 	}
 	return 0;
+}
+
+/**
+ * Função que verifica se a posição (x,y) coincide com a entrada de um determinado nível do jogo.
+ * @param e Estado atual do programa
+ * @param x Abcissa do ponto
+ * @param y Ordenada do ponto
+ * @return 0 --> False;\n
+ *         1 --> True.
+*/
+int tem_entrada(ESTADO e, int x, int y) {
+	return posicao_igual(e.entrada, x, y);
 }
 
 /**
@@ -138,7 +157,7 @@ int tem_saida(ESTADO e, int x, int y) {
 }
 
 /**
- * Função que verifica se a posição (x,y) está ocupada pelo jogador ou por um inimigo ou por um obstáculo ou pela saída do jogo.
+ * Função que verifica se a posição (x,y) está ocupada pelo jogador ou por um inimigo ou por um obstáculo ou pela entrada ou saída do jogo.
  * @param e Estado atual do programa
  * @param x Abcissa do ponto
  * @param y Ordenada do ponto
@@ -147,6 +166,7 @@ int tem_saida(ESTADO e, int x, int y) {
  */
 int invariante(ESTADO e, int x, int y) {
 	if(tem_jogador(e, x, y)) return 1;
+	if(tem_entrada(e, x, y)) return 1;
 	if(tem_saida(e, x, y)) return 1;
 	if(tem_inimigo(e, x, y)) return 1;
 	if(tem_obstaculo(e, x, y)) return 1;
@@ -181,8 +201,8 @@ void imprimir_tabuleiro() {
  * @return Estado novo.
 */
 ESTADO inicializar_jogador(ESTADO e) {
-	e.jogador.x = TAMANHO / 2;
-	e.jogador.y = TAMANHO - 1;
+	e.entrada.x = e.jogador.x = TAMANHO / 2;
+	e.entrada.y = e.jogador.y = TAMANHO - 1;
 
 	return e;
 }
@@ -202,7 +222,7 @@ ESTADO inicializar_inimigos(ESTADO e) {
 		} while(invariante(e, x, y));
 
 		POSICAO p = {x, y};
-		e.inimigo[e.num_inimigos++] = p;
+		e.inimigos[e.num_inimigos++] = p;
 	}
 
 	return e;
@@ -223,7 +243,7 @@ ESTADO inicializar_obstaculos(ESTADO e) {
 		} while(invariante(e, x, y));
 
 		POSICAO p = {x, y};
-		e.obstaculo[e.num_obstaculos++] = p;
+		e.obstaculos[e.num_obstaculos++] = p;
 	}
 
 	return e;
@@ -247,42 +267,102 @@ ESTADO inicializar_saida(ESTADO e) {
 }
 
 /**
- * Função que inicializa o estado do jogo.
- * @return Estado.
- */
-ESTADO inicializar() {
-	ESTADO e;
+ * Função que inicializa o TOP 10 de pontuações do jogo.
+ * @param e Estado
+ * @param *scores Array de scores
+ * @return Estado novo.
+*/
+ESTADO inicializar_scores(ESTADO e, int *scores) {
+	if (scores == NULL) return e;
 
-	e = inicializar_jogador(e);
-	e = inicializar_saida(e);
-	e = inicializar_obstaculos(e);
-	e = inicializar_inimigos(e);
-
-	e.nivel = 1;
-	e.score = 0;
-	e.vida_jogador = 10;
+	for (int i = 0; i < NUM_SCORES; i++)
+		e.scores[i] = scores[i];
 
 	return e;
 }
 
 /**
- * Função que atualiza o estado do jogo a partir da passagem do 1º para o 2º nivel.
+ * Função que inicializa o estado do jogo.
+ * @return Estado.
+ */
+ESTADO inicializar(int mostrar_ecra, int nivel, int vida_jogador, int score_atual, int *scores) {
+	ESTADO e;
+	memset(&e, 0, sizeof(ESTADO));
+
+	e.mostrar_ecra = mostrar_ecra;
+	e.nivel = nivel;
+	e.score_atual = score_atual;
+	e.vida_jogador = vida_jogador;
+	e = inicializar_jogador(e);
+	e = inicializar_saida(e);
+	e = inicializar_obstaculos(e);
+	e = inicializar_inimigos(e);
+	e = inicializar_scores(e, scores);
+
+	return e;
+}
+
+/**
+ * Função que trata de deslocar o jogador para as cordenadas indicadas.
  * @param e Estado atual
  * @return Estado novo.
- */
-ESTADO novo_nivel(ESTADO e) {
-	ESTADO novo;
+ */ 
+ESTADO movimentar_jogador(ESTADO e) {
+	e.jogador.x = e.acao.x;
+	e.jogador.y = e.acao.y;
+	return e;
+}
 
-	novo = inicializar_jogador(novo);
-	novo = inicializar_saida(e);
-	novo = inicializar_obstaculos(novo);
-	novo = inicializar_inimigos(novo);
+/**
+ * Função que, dada uma ação possível do jogador, sinaliza a posição associada à mesma com uma determinada cor e cria um link com a informação do futuro estado.
+ * @param e Estado
+ * @param dx deslocação ao longo do eixo das abcissas em relação à posição atual do jogador
+ * @param dy deslocação ao longo do eixo das ordenadas em relação à posição atual do jogador
+*/
+void imprimir_acao_jogador(ESTADO e, int dx, int dy) {
+	int x = e.jogador.x + dx;
+	int y = e.jogador.y + dy;
 
-	novo.nivel = e.nivel + 1;
-	novo.score = e.score + 20;
-	novo.vida_jogador = 10;
+	if (!posicao_valida(x, y) || tem_obstaculo(e, x, y))
+		return;
+	}
 
-	return novo;
+	else if (tem_inimigo(e, x, y)) {
+		for (int i = 0; i < e.num_inimigos; i++) {
+            if (x == e.inimigos[i].x && y == e.inimigos[i].y) {
+                sprintf(link,"http://localhost/cgi-bin/RogueLike?%s,%d,%d", "Matar_Inimigo", x, y);
+                ABRIR_LINK(link);
+                colour2(x,y);
+                IMAGEM(e.inimigo[i].x, e.inimigo[i].y, ESCALA, "dwarf_12.png");
+                FECHAR_LINK;
+            }
+        }
+	}
+
+	else if (tem_saida(e, x, y)) {
+		sprintf(link, "http://localhost/cgi-bin/RogueLike?%s,%d,%d", "Movimento_Saída", x, y);
+        ABRIR_LINK(link);
+        colour1(x,y);
+        IMAGEM(e.saida.x, e.saida.y, ESCALA, "trapdoor1.png");
+        FECHAR_LINK;
+	}
+
+	else {
+		sprintf(link,"http://localhost/cgi-bin/RogueLike?%s,%d,%d", "Movimento_Jogador", x, y);
+        ABRIR_LINK(link);
+        colour1(x,y);
+        FECHAR_LINK;
+	}
+}
+
+/**
+ * Função que imprime as ações do jogador.
+ * @param e estado
+*/
+void acao_jogador(ESTADO e) {
+	for (int dx = -1; dx <= 1; dx++)
+		for (int dy = -1; dy <= 1; dy++)
+			imprime_acao_jogador(e, dx, dy);
 }
 
 /**
@@ -290,121 +370,53 @@ ESTADO novo_nivel(ESTADO e) {
  * @param e Estado atual
  * @return Estado novo.
  */ 
-ESTADO movimento_inimigos(ESTADO e) {
-	int x = e.jogador.x, y = e.jogador.y;
+ESTADO movimentar_inimigos(ESTADO e) {
+	int dx = e.jogador.x - e.inimigo[i].x;
+	int dy = e.jogador.y - e.inimigo[i].y;
 
-	for (int i = 0; i < ((int)e.num_inimigos); i++) {
+	dx = sign(dx);
+	dy = sign(dy);
 
-		/* Coordenadas do inimigo */
-		int x1 = e.inimigo[i].x, y1 = e.inimigo[i].y;
+	int x = e.inimigos[i].x + dx;
+	int y = e.inimigos[i].y + dy;
 
-		int dx = (x == x1)? 0 : ((x > x1)? 1 : -1);
-		int dy = (y == y1)? 0 : ((y > y1)? 1 : -1);
-
-		int dist = (abs(x-x1) > abs(y-y1))? abs(x-x1): abs(y-y1);
-
-		if (!invariante(e, x1 + dx, y1 + dy) && !tem_saida(e, x1 + dx, y1 + dy)) {
-			x1 += dx;
-			y1 += dy;
-		}
-		else if (!invariante(e, x1, y1+dy) && !tem_saida(e, x1+dx, y1+dy)) {
-			y1 += dy;
-		}
-		else if (!invariante(e, x1+dx, y1) && !tem_saida(e, x1+dx, y1+dy)) {
-			x1 += dx;
-		}
-		if (dist > 1) {
-			e.inimigo[i].x = x1;
-			e.inimigo[i].y = y1;
-		}
-		else {
-			e.vida_jogador--;
-		}
+	if (!invariante(e, x, y)) {
+		e.inimigos[i].x = x;
+		e.inimigos[i].y = y;
 	}
+
 	return e;
 }
 
 /**
- * Função que, dada uma posição possível do jogador, sinaliza-a com uma determinada cor e cria um link com a informação do futuro estado.
- * @param Estado atual
- * @param dx Deslocação na abcissa do ponto atual do jogador
- * @param dy Deslocação na ordenada do ponto atual do jogador
+ * Função que trata de matar os inimigos, removendo-os do tabuleiro, incrementando o score.
+ * @param e Estado atual
+ * @return Estado novo.
  */
-void movimento(ESTADO e, int dx, int dy) {
-    /* (x,y) da quadrícula que se encontra à volta da posição do jogador */
-	int x = e.jogador.x + dx, y = e.jogador.y + dy;
-
-    char link[MAX];
-
-    if(!posicao_valida(x, y)) {
-        return;
-    }
-
-    else if(tem_obstaculo(e, x, y)) {
-        return;
-    }
-	
-    else if(tem_inimigo(e, x, y)) {
-        for (int i = 0; i < e.num_inimigos; i++) {
-			/* Se na casa (x,y) estiver um inimigo, esta será sinalizada e clicável de forma a que o jogador saiba que o pode matar */ 
-            if (x == e.inimigo[i].x && y == e.inimigo[i].y) {
-                sprintf(link,"http://localhost/cgi-bin/RogueLike?%s,%d,%d", "Mata", e.inimigo[i].x, e.inimigo[i].y);
-                ABRIR_LINK(link);
-                colour2(x,y);
-                IMAGEM(e.inimigo[i].x, e.inimigo[i].y, ESCALA, "dwarf_12.png");
-                FECHAR_LINK;
-            }
-        }
-    }
-
-	/* Se o jogador estiver perto da saída, a casa desta será assinalada e clicável */
-    else if (tem_saida(e, x, y)) {
-        sprintf(link, "http://localhost/cgi-bin/RogueLike?%s,%d,%d", "Movimento_saida", 0, 0);
-        ABRIR_LINK(link);
-        colour1(x,y);
-        IMAGEM(e.saida.x, e.saida.y, ESCALA, "trapdoor1.png");
-        FECHAR_LINK;
-    }
-
-	/* Se não se verificar nenhum dos casos anteriores, o jogador pode se movimentar para (x,y), sendo que esta casa será sinalizada e clicável */
-    else {
-        sprintf(link,"http://localhost/cgi-bin/RogueLike?%s,%d,%d", "Movimento_jogador", x, y);
-        ABRIR_LINK(link);
-        colour1(x,y);
-        FECHAR_LINK;
-    }
-}
-
-/**
- * Função que averigua o ponto de situação de todas as quadrículas para onde o jogador se pode movimentar.
- * Nota: O jogador pode-se deslocar para os lados ou para cima/baixo ou nas diagonais.
- * @param Estado atual
- */
-void imprime_movimentos_jogador(ESTADO e) {
-	movimento(e,  0, -1);
-	movimento(e,  0, +1);
-	movimento(e, -1,  0);
-	movimento(e, +1,  0);
-	movimento(e, -1, -1);
-	movimento(e, -1, +1);
-	movimento(e, +1, -1);
-	movimento(e, +1, +1);
+ESTADO matar_inimigos(ESTADO e) {
+	for(int i = 0; i < e.num_inimigos; i++) {
+		if (e.acao.x == e.inimigos[i].x && e.acao.y == e.inimigos[i].y) {
+			e.inimigos[i] = e.inimigos[e.num_inimigos--];
+			break;
+		}	
+	}
+	return e;
 }
 
 /**
  * Função que imprime a imagem do jogador no tabuleiro e as possivéis jogadas do mesmo.
  * @param e Estado atual
  */ 
-void imprime_jogador(ESTADO e) {
+void imprimir_jogador(ESTADO e) {
 	IMAGEM(e.jogador.x, e.jogador.y, ESCALA, "character_21.png");
-    imprime_movimentos_jogador(e);
+	acao_jogador(e);
 }
 
 /**
  * Função que imprime as imagens das vidas do jogador na interface do jogo.
  * @param e Estado atual
  */ 
-void imprime_vida_jogador(ESTADO e) {
+void imprimir_vida_jogador(ESTADO e) {
 	for (int i = 0; i < e.vida_jogador; i++) {
 		IMAGEM(i, 26, 20, "heart.png");
 	}
@@ -414,9 +426,9 @@ void imprime_vida_jogador(ESTADO e) {
  * Função que imprime as imagens dos inimigos no tabuleiro.
  * @param e Estado atual
  */ 
-void imprime_inimigos(ESTADO e) {
+void imprimir_inimigos(ESTADO e) {
 	for(int i = 0; i < e.num_inimigos; i++) {
-		IMAGEM(e.inimigo[i].x, e.inimigo[i].y, ESCALA, "dwarf_12.png");
+		IMAGEM(e.inimigos[i].x, e.inimigos[i].y, ESCALA, "dwarf_12.png");
 	}
 }
 
@@ -424,9 +436,9 @@ void imprime_inimigos(ESTADO e) {
  * Função que imprime as imagens dos obstáculos no tabuleiro.
  * @param e Estado atual
  */ 
-void imprime_obstaculo(ESTADO e) {
+void imprimir_obstaculos(ESTADO e) {
 	for (int i = 0; i < e.num_obstaculos; i++) {
-        IMAGEM(e.obstaculo[i].x, e.obstaculo[i].y, ESCALA, "lava_pool1.png");
+        IMAGEM(e.obstaculos[i].x, e.obstaculos[i].y, ESCALA, "lava_pool1.png");
 	}
 }
 
@@ -434,7 +446,7 @@ void imprime_obstaculo(ESTADO e) {
  * Função que imprime a imagem da saída no tabuleiro.
  * @param e Estado atual
  */ 
-void imprime_saida(ESTADO e) {
+void imprimir_saida(ESTADO e) {
 	IMAGEM(e.saida.x, e.saida.y, ESCALA, "trapdoor1.png");
 }
 
@@ -461,14 +473,6 @@ void atualizar_ranking_scores(ESTADO e) {
 		e.scores[j] = e.scores[j-1];
 	}
 	e.scores[i] = e.score;
-}
-
-/**
- * Função que extrai o menor valor do top 5 das pontuações.
- * @return Menor valor do top 5 das pontuações.
- */
-int menor_valor_ranking(ESTADO e) {
-	return e.scores[NUM_SCORES - 1];
 }
 
 /**
@@ -507,98 +511,34 @@ void perdeste2() {
 }
 
 /**
- * Função que lê o estado do programa.
- * @param args String do estado
- * @return Estado.
- */
-ESTADO ler_estado(char *args)
-{
-    ESTADO e;
-    int r;
-
-	/* Se a QUERY_STRING for nula, dá-se a inicialização do jogo */
-    if(strlen(args) == 0) {
-        e = inicializar();
-    }
-    else { 
-    	FILE *fp;
-    	ACTION action;
-
-		/* Leitura da ação do jogador e os respetivos valores x, y. */
-    	sscanf(args, "%[^,],%d,%d", action.nome, &action.x, &action.y);
-		/* fp é um apontador que fica encarregado de ler o ficheiro "score" */
-    	fp = fopen("/var/www/html/estado","r");
-    	
-		/* Caso em que o ficheiro "estado" não existe. fp aponta para NULL */
-    	if(fp == NULL) {
-    		perror("Não consegui abrir o ficherio do estado!");
-    		e = inicializar();
-    	}
-
-    	else {
-    		r = fread(&e, sizeof(ESTADO), 1, fp);
-      		if(r < 1) {
-      			e = inicializar();
-      		}
-      		else {
-      			e.action = action;
-      		}
-    		fclose(fp);
-    	}
-    }
-
-    return e;
-}
-
-/**
- * Função que trata de deslocar o jogador para as cordenadas indicadas.
- * @param e Estado atual
- * @return Estado novo.
- */ 
-ESTADO move_jogador(ESTADO e) {
-	e.jogador.x = e.action.x;
-	e.jogador.y = e.action.y;
-	return e;
-}
-
-/**
- * Função que trata de matar os inimigos, removendo-os do tabuleiro, incrementando o score.
- * @param e Estado atual
- * @return Estado novo.
- */
-ESTADO mata_inimigos(ESTADO e){
-	for(int i = 0; i < e.num_inimigos; i++) {
-		if (e.action.x == e.inimigo[i].x && e.action.y == e.inimigo[i].y) {
-			e.inimigo[i] = e.inimigo[e.num_inimigos--];
-			e.score += 10;
-			break;
-		}	
+\brief Função que imprime um estado
+@param e estado
+*/
+void imprime_estado(ESTADO e) {
+	if (e.mostrar_ecra == 0) {
+		imprimir_tabuleiro();
+		imprimir_entrada(e);
+		imprimir_jogador(e);
+		imprimir_saida(e);
+		imprimir_inimigos(e);
+		imprimir_obstaculos(e);
+		imprimir_score(e);
+		imprimir_vida_jogador(e);
+		imprimir_nivel(e);
+		imprime_regressar_menu_jogo();
 	}
-	return e;
-}
 
-/**
- * Função que consoante a ação do jogador, realiza uma determinada tarefa.
- * @param e Estado atual
- * @return Estado novo.
- */
-ESTADO ler_acao(ESTADO e) {
-	if(strcmp(e.action.nome, "Inicio")) {
-        return inicializar();
-    }
-    if(strcmp(e.action.nome, "Movimento_jogador")) {
-        e = move_jogador(e);
-    }
-    if(strcmp(e.action.nome, "Movimento_saida")) {
-        e = novo_nivel(e);
-    }
-    if(strcmp(e.action.nome, "Mata")) {
-        e = mata_inimigos(e);
-    }
+	else if (e.mostrar_ecra == 1) {
+		imprime_menu();
+	}
 
-    e = movimento_inimigos(e);
-    
-    return e;
+	else if (e.mostrar_ecra == 2) {
+		imprime_melhores_scores(e);
+	}
+
+	else if (e.mostrar_ecra == 3) {
+		imprime_ajuda();
+	}
 }
 
 /**
@@ -607,10 +547,10 @@ ESTADO ler_acao(ESTADO e) {
  */
 int main()
 {
-	int valor = 0;
+	/*int valor = 0;
 	char NIVEL[1024] = {0};
 	char SCORE[1024] = {0};
-	char VALOR[1024] = {0};
+	char VALOR[1024] = {0};*/
 
 	srandom(time(NULL));
 
@@ -619,7 +559,7 @@ int main()
 	COMECAR_HTML;
 	ABRIR_SVG(1300,650);
 
-	e = ler_acao(e);
+	/*e = ler_acao(e);
 
 	imprimir_tabuleiro();
 	imprime_jogador(e);
@@ -645,11 +585,11 @@ int main()
 	else if (e.vida_jogador == 0 && e.score >= valor) {
 		perdeste1(e);
 		atualizar_ranking_scores(e);
-	}
+	}*/
+
+	imprime_estado(e);
 
 	FECHAR_SVG;
-
-	estado2ficheiro(e);
 	
 	return 0;
 }

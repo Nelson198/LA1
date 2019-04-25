@@ -15,6 +15,12 @@
 /** Número máximo de pontuações */
 #define NUM_SCORES			10
 
+/** Número inicial de vidas do jogador */
+#define VIDAS				10
+
+/** Caminho do ficheiro de estado */
+#define FICHEIRO_ESTADO		"/var/www/html/estado"
+
 /**
  * Estrutura que armazena uma posição.
 */
@@ -26,18 +32,18 @@ typedef struct posicao {
 /**
  * Estrutura de dados que armazena informação relatica a uma ação.
  */
-typedef struct action {
+typedef struct acao {
     char nome[100];
     int x;
     int y;
-} ACTION;
+} ACAO;
 
 /**
  * Estrutura que armazena o estado do jogo.
 */
 typedef struct estado {
 	/** Puntuação atual */
-	int score;
+	int score_atual;
 	/** Array com as melhores 10 pontuações */
 	int scores[NUM_SCORES];
 	/** Nivel atual do jogo */
@@ -48,37 +54,48 @@ typedef struct estado {
 	int num_inimigos;
 	/** O nº de obstáculos */
 	int num_obstaculos;
+	/** Ecrã a ser exibido (0 tabuleiro, 1 menu, 2 melhores scores, 3 ajuda) */
+	int mostrar_ecra;
 	/** A posição do jogador */
 	POSICAO jogador;
+	/** A posição da entrada */
+	POSICAO entrada;
 	/** A posição da saida */
 	POSICAO saida;
 	/** Array com a posição dos inimigos */
-	POSICAO inimigo[MAX_INIMIGOS];
+	POSICAO inimigos[MAX_INIMIGOS];
 	/** Array com a posição dos obstáculos */
-	POSICAO obstaculo[MAX_OBSTACULOS];
+	POSICAO obstaculos[MAX_OBSTACULOS];
 	/** Ação */
-	ACTION action;
+	ACAO acao;
 
 } ESTADO;
 
 /**
- * Função que converte um estado numa string.
- * @param e O estado
- * @return A string correspondente ao estado e.
+ * Função que converte o conteúdo do ficheiro de estado num estado.
+ * @return Estado correspondente ao conteúdo do ficheiro de estado.
 */
-char *estado2str(ESTADO e);
+ESTADO ficheiro2estado();
 
 /**
- * Função que converte uma string num estado.
- * @param argumentos Uma string contendo os argumentos passados à CGI
- * @return O estado correspondente à string dos argumentos.
-*/
-ESTADO str2estado(char *argumentos);
-
-/**
- * Função que grava o estado no ficheiro "estado".
+ * Função que converte um estado no ficheiro de estado.
  * @param e Estado
- */
+*/
 void estado2ficheiro(ESTADO e);
+
+/**
+ * Função que lê o estado do programa, isto é, o URL.
+ * @param args String do estado
+ * @return Estado.
+ */
+ESTADO ler_estado(char *args);
+
+/**
+ * Função que aplica uma ação ao ficheiro de estado
+ * @param acao a ação a aplicar
+ * @param x coordenada x
+ * @param y coordenada y
+*/
+void aplicar_acao(char *acao, int x, int y);
 
 #endif
