@@ -68,13 +68,13 @@
 #define QUADRADO_TRANSPARENTE(X, Y, ESCALA)						printf("<rect x=%d y=%d width=%d height=%d opacity=0 />\n", ESCALA * X, ESCALA * Y, ESCALA, ESCALA)
 
 /**
- * Macro para dar print a um determinado texto.
- * @param X coordenada x
- * @param Y coordenada y
- * @param ESCALA tamanho do texto
- * @param TXT string com o texto
+ * Macro para criar texto
+ * @param X A coordenada X do canto inferior esquerdo
+ * @param Y A coordenada Y do canto inferior esquerdo
+ * @param FILL A cor do texto
+ * @param TEXTO O texto para escrever
 */
-#define TEXTO(X, Y, ESCALA, TXT)								printf("<text x=%f y=%f>\n%s\n</text>\n", ESCALA * X, ESCALA * Y, TXT)
+#define TEXTO(X, Y, FILL, TEXTO)								printf("<text x=%d y=%d fill=%s>%s</text>\n", X, Y, FILL, TEXTO)
 
 /**
  * Macro para abrir um link.

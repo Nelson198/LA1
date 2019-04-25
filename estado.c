@@ -1,5 +1,14 @@
 #include "estado.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+/* Header functions */
+ESTADO inicializar(int mostrar_ecra, int nivel, int vida_jogador, int score_atual, int *scores);
+ESTADO movimentar_inimigos(ESTADO e);
+ESTADO matar_inimigos(ESTADO e);
+ESTADO atualizar_ranking_scores(ESTADO e);
+
 
 ESTADO ficheiro2estado() {
 	FILE *f;
@@ -16,7 +25,7 @@ ESTADO ficheiro2estado() {
 
 	for(i = 0; i < (sizeof(ESTADO) / sizeof(int)); i++) {
 		if (fscanf(f, "%d", &d) != 1) {
-			e = inicializar(0, 0, NULL, VIDAS, 0, 1, 0, 0, -1);
+			e = inicializar(1, 1, VIDAS, 0, NULL);
 			estado2ficheiro(e);
 			break;
 		}
@@ -79,7 +88,7 @@ void aplicar_acao(char *acao, int x, int y) {
 
 	else if (strcmp(acao, "Matar_Inimigo") == 0) {
 		e.score_atual += 5;
-		e = matar_inimigos(e, x, y);
+		e = matar_inimigos(e);
 		e = movimentar_inimigos(e);
 		e.jogador.x = x;
 		e.jogador.y = y;

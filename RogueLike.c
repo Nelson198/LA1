@@ -141,7 +141,7 @@ int tem_obstaculo(ESTADO e, int x, int y) {
  *         1 --> True.
 */
 int tem_entrada(ESTADO e, int x, int y) {
-	return posicao_igual(e.entrada, x, y);
+	return mesma_posicao(e.entrada, x, y);
 }
 
 /**
@@ -322,8 +322,9 @@ ESTADO movimentar_jogador(ESTADO e) {
 void imprimir_acao_jogador(ESTADO e, int dx, int dy) {
 	int x = e.jogador.x + dx;
 	int y = e.jogador.y + dy;
+	char link[2048];
 
-	if (!posicao_valida(x, y) || tem_obstaculo(e, x, y))
+	if (!posicao_valida(x, y) || tem_obstaculo(e, x, y)) {
 		return;
 	}
 
@@ -333,7 +334,7 @@ void imprimir_acao_jogador(ESTADO e, int dx, int dy) {
                 sprintf(link,"http://localhost/cgi-bin/RogueLike?%s,%d,%d", "Matar_Inimigo", x, y);
                 ABRIR_LINK(link);
                 colour2(x,y);
-                IMAGEM(e.inimigo[i].x, e.inimigo[i].y, ESCALA, "dwarf_12.png");
+                IMAGEM(e.inimigos[i].x, e.inimigos[i].y, ESCALA, "dwarf_12.png");
                 FECHAR_LINK;
             }
         }
@@ -362,7 +363,7 @@ void imprimir_acao_jogador(ESTADO e, int dx, int dy) {
 void acao_jogador(ESTADO e) {
 	for (int dx = -1; dx <= 1; dx++)
 		for (int dy = -1; dy <= 1; dy++)
-			imprime_acao_jogador(e, dx, dy);
+			imprimir_acao_jogador(e, dx, dy);
 }
 
 /**
@@ -371,18 +372,20 @@ void acao_jogador(ESTADO e) {
  * @return Estado novo.
  */ 
 ESTADO movimentar_inimigos(ESTADO e) {
-	int dx = e.jogador.x - e.inimigo[i].x;
-	int dy = e.jogador.y - e.inimigo[i].y;
+	for (int i = 0; i < e.num_inimigos; i++) {
+		int dx = e.jogador.x - e.inimigos[i].x;
+		int dy = e.jogador.y - e.inimigos[i].y;
 
-	dx = sign(dx);
-	dy = sign(dy);
+		dx = sign(dx);
+		dy = sign(dy);
 
-	int x = e.inimigos[i].x + dx;
-	int y = e.inimigos[i].y + dy;
+		int x = e.inimigos[i].x + dx;
+		int y = e.inimigos[i].y + dy;
 
-	if (!invariante(e, x, y)) {
-		e.inimigos[i].x = x;
-		e.inimigos[i].y = y;
+		if (!invariante(e, x, y)) {
+			e.inimigos[i].x = x;
+			e.inimigos[i].y = y;
+		}
 	}
 
 	return e;
@@ -451,6 +454,45 @@ void imprimir_saida(ESTADO e) {
 }
 
 /**
+ * Função que imprime o nível atual.
+ * @param nivel nível atual
+*/
+void imprimir_nivel(ESTADO e) {
+	char s1[1000];
+	sprintf(s1, "Nivel: %d", e.nivel);
+	TEXTO((TAMANHO+1)*ESCALA, 60, "#000000", s1);	
+}
+
+/**
+ * Função que imprime o score atual.
+ * @param score_atual o score atual
+*/
+void imprimir_score_atual(ESTADO e) {
+	char s1[1000];
+	sprintf(s1, "Score: %d", e.score_atual);
+	TEXTO((TAMANHO+1)*ESCALA, 20, "#000000", s1);
+}
+
+/**
+ * Função que imprime o menu do jogo.
+*/
+void imprimir_menu() {
+	IMAGEM(0, 0, TAMANHO*ESCALA, "MenuBackground.jpg");
+
+	ABRIR_LINK("http://localhost/cgi-bin/RogueLike?Início_Jogo");
+	TEXTO((TAMANHO-10)*ESCALA, (TAMANHO/2 - 1)*ESCALA, "#00ff00", "Jogar");
+	FECHAR_LINK;
+
+	ABRIR_LINK("http://localhost/cgi-bin/RogueLike?Ajuda");
+	TEXTO((TAMANHO-10)*ESCALA, (TAMANHO/2 + 1)*ESCALA, "#ffffff", "Ajuda");
+	FECHAR_LINK;
+
+	ABRIR_LINK("http://localhost/cgi-bin/RogueLike?Ranking");
+	TEXTO((TAMANHO-10)*ESCALA, (TAMANHO/2 + 2)*ESCALA, "#ffffff", "Top 10 de Pontuações");
+	FECHAR_LINK;
+}
+
+/**
  * Função que imprime o top 10 das pontuações na interface do jogo.
  * @param e Estado atual
  */
@@ -458,21 +500,23 @@ void imprimir_ranking_scores(ESTADO e) {
 	for(int i = 0; i < NUM_SCORES; i++) {
 		char buf[NUM_SCORES];
 		sprintf(buf, "%d", e.scores[i]);
-		TEXTO(15.6, 4.0 + (i*42), ESCALA, buf);
+		TEXTO(16, 4 + (i*42), "#ffffff", buf);
 	}
 }
 
 /** 
  * Função que, dada uma pontuação, atualiza o top 10 das pontuações obtidas até ao momento.
  * @param e Estado atual
+ * return e Estado novo.
  */
-void atualizar_ranking_scores(ESTADO e) {
+ESTADO atualizar_ranking_scores(ESTADO e) {
 	int i;
-	for(i = 0; e.score < e.scores[i] && i < NUM_SCORES; i++);
+	for(i = 0; e.score_atual < e.scores[i] && i < NUM_SCORES; i++);
 	for (int j = NUM_SCORES - 1; j > i; j--) {
 		e.scores[j] = e.scores[j-1];
 	}
-	e.scores[i] = e.score;
+	e.scores[i] = e.score_atual;
+	return e;
 }
 
 /**
@@ -514,30 +558,30 @@ void perdeste2() {
 \brief Função que imprime um estado
 @param e estado
 */
-void imprime_estado(ESTADO e) {
+void imprimir_estado(ESTADO e) {
 	if (e.mostrar_ecra == 0) {
 		imprimir_tabuleiro();
-		imprimir_entrada(e);
+		//imprimir_entrada(e);
 		imprimir_jogador(e);
+		imprimir_vida_jogador(e);
 		imprimir_saida(e);
 		imprimir_inimigos(e);
 		imprimir_obstaculos(e);
-		imprimir_score(e);
-		imprimir_vida_jogador(e);
+		imprimir_score_atual(e);
 		imprimir_nivel(e);
-		imprime_regressar_menu_jogo();
+		//imprimir_regressar_menu_jogo();
 	}
 
 	else if (e.mostrar_ecra == 1) {
-		imprime_menu();
+		imprimir_menu();
 	}
 
 	else if (e.mostrar_ecra == 2) {
-		imprime_melhores_scores(e);
+		imprimir_ranking_scores(e);
 	}
 
 	else if (e.mostrar_ecra == 3) {
-		imprime_ajuda();
+		//imprimir_ajuda();
 	}
 }
 
@@ -547,11 +591,6 @@ void imprime_estado(ESTADO e) {
  */
 int main()
 {
-	/*int valor = 0;
-	char NIVEL[1024] = {0};
-	char SCORE[1024] = {0};
-	char VALOR[1024] = {0};*/
-
 	srandom(time(NULL));
 
 	ESTADO e = ler_estado(getenv("QUERY_STRING"));
@@ -587,7 +626,7 @@ int main()
 		atualizar_ranking_scores(e);
 	}*/
 
-	imprime_estado(e);
+	imprimir_estado(e);
 
 	FECHAR_SVG;
 	
