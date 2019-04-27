@@ -1,90 +1,82 @@
 #ifndef ___CGI_H___
 #define ___CGI_H___
 
-/**
- * @file cgi.h
- * Macros úteis para gerar CGIs.
-*/
-
 #include <stdio.h>
 
 /**
-* Caminho para as imagens.
+@file cgi.h
+Macros úteis para gerar CGIs
 */
-#define IMAGE_PATH												"http://localhost/Imagens/"
 
 /**
- * Macro para começar o html.
+\brief Caminho para as imagens
 */
-#define COMECAR_HTML											printf("Content-Type: text/html\n\n")
+#define IMAGE_PATH								"http://localhost/Imagens/"
 
 /**
- * Macro para abrir um svg.
- * @param tamx O comprimento do svg
- * @param tamy A altura do svg
+\brief Macro para começar o html
 */
-#define ABRIR_SVG(tamx, tamy)									printf("<svg width=%d height=%d>\n", tamx, tamy)
+#define COMECAR_HTML							printf("Content-Type: text/html\n\n")
 
 /**
- * Macro para fechar um svg.
+\brief Macro para abrir um svg
+@param tamx O comprimento do svg
+@param tamy A altura do svg
 */
-#define FECHAR_SVG												printf("</svg>\n")
+#define ABRIR_SVG(tamx, tamy)					printf("<svg width=%f height=%f>\n", tamx, tamy)
 
 /**
- * Macro para criar uma imagem.
- * @param X A coordenada X do canto superior esquerdo
- * @param Y A coordenada Y do canto superior esquerdo
- * @param ESCALA A escala da imagem
- * @param FICHEIRO O caminho para o link do ficheiro
+\brief Macro para fechar um svg
 */
-#define IMAGEM(X, Y, ESCALA, FICHEIRO)							printf("<image x=%d y=%d width=%d height=%d xlink:href=%s />\n", ESCALA * X, ESCALA * Y, ESCALA, ESCALA, IMAGE_PATH FICHEIRO)
+#define FECHAR_SVG								printf("</svg>\n")
 
 /**
- * Macro para criar um quadrado.
- * @param X A coordenada X do canto superior esquerdo
- * @param Y A coordenada Y do canto superior esquerdo
- * @param ESCALA A escala da imagem
- * @param COR A cor de preenchimento do quadrado
+\brief Macro para criar uma imagem
+@param X A coordenada X do canto superior esquerdo
+@param Y A coordenada Y do canto superior esquerdo
+@param ESCALA A escala da imagem
+@param FICHEIRO O caminho para o link do ficheiro
 */
-#define QUADRADO(X, Y, ESCALA, COR)								printf("<rect x=%d y=%d width=%d height=%d fill=%s />\n", ESCALA * X, ESCALA * Y, ESCALA, ESCALA, COR)
+#define IMAGEM(X, Y, ESCALA, FICHEIRO)			printf("<image x=%d y=%d width=%d height=%d xlink:href=%s />\n", \
+														ESCALA * X, ESCALA * Y, ESCALA, ESCALA, IMAGE_PATH FICHEIRO)
 
 /**
- * Macro para criar um quadrado que vai assinalar as casas para as quais o jogador pode se mover.
- * @param X A coordenada x
- * @param Y A coordenada y
- * @param ESCALA Tamanho do quadrado
- * @param COR A cor do quadrado
- * @param OPACIDADE O quão opacado queremos que o quadrado seja
- * @param ARESTA Cor da aresta do quadrado
+\brief Macro para criar um quadrado vermelho
+@param X A coordenada X do canto superior esquerdo
+@param Y A coordenada Y do canto superior esquerdo
+@param ESCALA A escala do quadrado
 */
-#define QUADRADO2(X, Y, ESCALA, COR, OPACIDADE, ARESTA)			printf("<rect x=%d y=%d width=%d height=%d fill=%s opacity=%f stroke=%s />\n", ESCALA * X, ESCALA * Y, ESCALA, ESCALA, COR, OPACIDADE, ARESTA)
+#define QUADRADO(X, Y, ESCALA, COLOR)			printf("<rect x=%d y=%d width=%d height=%d opacity=0.25 style=fill:%s />\n", \
+														ESCALA * X, ESCALA* Y, ESCALA, ESCALA, COLOR)
 
 /**
- * Macro para criar um quadrado.
- * @param X A coordenada X do canto superior esquerdo
- * @param Y A coordenada Y do canto superior esquerdo
- * @param ESCALA A escala da imagem
+\brief Macro para criar um quadrado transparente
+@param X A coordenada X do canto superior esquerdo
+@param Y A coordenada Y do canto superior esquerdo
+@param ESCALA A escala do quadrado
 */
-#define QUADRADO_TRANSPARENTE(X, Y, ESCALA)						printf("<rect x=%d y=%d width=%d height=%d opacity=0 />\n", ESCALA * X, ESCALA * Y, ESCALA, ESCALA)
+#define QUADRADO_TRANSPARENTE(X, Y, ESCALA)		printf("<rect x=%d y=%d width=%d height=%d opacity=0 />\n", \
+														ESCALA * X, ESCALA* Y, ESCALA, ESCALA)
 
 /**
- * Macro para criar texto
- * @param X A coordenada X do canto inferior esquerdo
- * @param Y A coordenada Y do canto inferior esquerdo
- * @param FILL A cor do texto
- * @param TEXTO O texto para escrever
+\brief Macro para criar texto
+@param X A coordenada X do canto inferior esquerdo
+@param Y A coordenada Y do canto inferior esquerdo
+@param FILL A cor do texto
+@param TEXTO O texto para escrever
 */
-#define TEXTO(X, Y, FILL, TEXTO)								printf("<text x=%d y=%d fill=%s>%s</text>\n", X, Y, FILL, TEXTO)
+#define TEXTO(X, Y, FILL, TIPO, TEXTO)			printf("<text x=%f y=%f fill=%s font-weight=%s font-size=\"18\" font-family=\"Arial\" >%s</text>\n", \
+														X, Y, FILL, TIPO, TEXTO)
 
 /**
- * Macro para abrir um link.
- * @param link O caminho para o link
+\brief Macro para abrir um link
+@param link O caminho para o link
 */
-#define ABRIR_LINK(link)										printf("<a xlink:href=%s>\n", link)
+#define ABRIR_LINK(link)						printf("<a xlink:href=%s>\n", link)
 
 /**
- * Macro para fechar o link.
+\brief Macro para fechar um link
 */
-#define FECHAR_LINK												printf("</a>\n")
+#define FECHAR_LINK								printf("</a>\n")
 
 #endif

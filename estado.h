@@ -1,100 +1,104 @@
 #ifndef ___ESTADO_H___
 #define ___ESTADO_H___
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 /**
- * @file estado.h
- * Definição do estado e das funções que convertem estados em strings e vice-versa.
+@file estado.h
+Definição do estado e das funções que convertem estados em ficheiros e vice-versa.
 */
 
-/** O nº máximo de inimigos. */
-#define MAX_INIMIGOS		100
+/** \brief Número máximo de inimigos */
+#define MAX_INIMIGOS		30
 
-/** O nº máximo de obstáculos. */
-#define MAX_OBSTACULOS		100
+/** \brief Número máximo de obstáculos */
+#define MAX_OBSTACULOS		20
 
-/** Número máximo de pontuações */
-#define NUM_SCORES			10
+/** \brief Número máximo de scores */
+#define NUM_SCORES			5
 
-/** Número inicial de vidas do jogador */
-#define VIDAS				10
+/** \brief Número inicial de vidas */
+#define VIDAS				5
 
-/** Caminho do ficheiro de estado */
+/** \brief Caminho do ficheiro de estado */
 #define FICHEIRO_ESTADO		"/var/www/html/estado"
 
 /**
- * Estrutura que armazena uma posição.
+\brief Estrutura que armazena uma posição.
 */
 typedef struct posicao {
+	/** \brief Coordenada x da posição */
 	int x;
+	/** \brief Coordenada y da posição */
 	int y;
 } POSICAO;
 
 /**
- * Estrutura de dados que armazena informação relatica a uma ação.
- */
-typedef struct acao {
-    char nome[100];
-    int x;
-    int y;
-} ACAO;
-
-/**
- * Estrutura que armazena o estado do jogo.
+\brief Estrutura que armazena o estado do jogo.
 */
 typedef struct estado {
-	/** Puntuação atual */
-	int score_atual;
-	/** Array com as melhores 10 pontuações */
-	int scores[NUM_SCORES];
-	/** Nivel atual do jogo */
-	int nivel;
-	/** Vida atual do jogador */
-	int vida_jogador;
-	/** O nº de inimigos */
-	int num_inimigos;
-	/** O nº de obstáculos */
-	int num_obstaculos;
-	/** Ecrã a ser exibido (0 tabuleiro, 1 menu, 2 melhores scores, 3 ajuda) */
-	int mostrar_ecra;
-	/** A posição do jogador */
+	/** \brief Posição do jogador */
 	POSICAO jogador;
-	/** A posição da entrada */
+	/** \brief Número de inimigos */
+	int num_inimigos;
+	/** \brief Número de obstáculos */
+	int num_obstaculos;
+	/** \brief Posição da poção */
+	POSICAO pocao;
+	/** \brief Array com a posição dos inimigos */
+	POSICAO inimigo[MAX_INIMIGOS];
+	/** \brief Array com a posição dos obstáculos */
+	POSICAO obstaculo[MAX_OBSTACULOS];
+	/** \brief Posição da entrada */
 	POSICAO entrada;
-	/** A posição da saida */
+	/** \brief Posição da saída */
 	POSICAO saida;
-	/** Array com a posição dos inimigos */
-	POSICAO inimigos[MAX_INIMIGOS];
-	/** Array com a posição dos obstáculos */
-	POSICAO obstaculos[MAX_OBSTACULOS];
-	/** Ação */
-	ACAO acao;
-
+	/** \brief Nível atual */
+	int nivel;
+	/** \brief Score atual */
+	int score_atual;
+	/** \brief Array com os scores */
+	int scores[NUM_SCORES];
+	/** \brief Índice do último score (0-4 se está nos scores, -1 se não, -2 se é o mais recente) */
+	int idx_ultimo_score;
+	/** \brief Número de vidas do jogador */
+	int vidas_jogador;
+	/** \brief Número de inimigos mortos */
+	int inimigos_mortos;
+	/** \brief Ecrã a ser mostrado (0 tabuleiro, 1 menu, 2 melhores scores, 3 ajuda) */
+	int mostrar_ecra;
+	/** \brief Mostrar casas para onde os inimigos se podem deslocar e, se for caso disso, atacar */
+	int mostrar_possiveis_casas_inimigos;
+	/** \brief Mostrar as casas para onde o jogador se poderá deslocar */
+	int mostrar_possiveis_casas_jogador;
 } ESTADO;
 
 /**
- * Função que converte o conteúdo do ficheiro de estado num estado.
- * @return Estado correspondente ao conteúdo do ficheiro de estado.
-*/
-ESTADO ficheiro2estado();
-
-/**
- * Função que converte um estado no ficheiro de estado.
- * @param e Estado
+\brief Função que converte um estado no ficheiro de estado.
+@param e o estado
 */
 void estado2ficheiro(ESTADO e);
 
 /**
- * Função que lê o estado do programa, isto é, o URL.
- * @param args String do estado
- * @return Estado.
- */
+\brief Função que converte o conteúdo do ficheiro de estado num estado.
+@returns o estado correspondente ao conteúdo do ficheiro de estado
+*/
+ESTADO ficheiro2estado();
+
+/**
+\brief Função que processa o URL / link que diz respeito ao estado do jogo.
+@param *args URL
+@returns Estado
+*/
 ESTADO ler_estado(char *args);
 
 /**
- * Função que aplica uma ação ao ficheiro de estado
- * @param acao a ação a aplicar
- * @param x coordenada x
- * @param y coordenada y
+\brief Função que aplica uma ação ao ficheiro de estado.
+@param acao a ação a aplicar
+@param x coordenada x
+@param y coordenada y
 */
 void aplicar_acao(char *acao, int x, int y);
 

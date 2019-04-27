@@ -1,26 +1,31 @@
 CFLAGS = -Wall -Wextra -pedantic -O2
-FICHEIROS = cgi.h estado.c estado.h RogueLike.c Makefile Imagens/*
+FICHEIROS = cgi.h estado.c estado.h Roguelike.c Makefile Imagens/*
 
-install: RogueLike
+install: Roguelike
 	sudo cp -r Imagens /var/www/html
-	sudo cp RogueLike /usr/lib/cgi-bin
+	sudo cp Roguelike /usr/lib/cgi-bin
 	sudo touch /var/www/html/estado
 	sudo chmod 666 /var/www/html/estado
 	touch install
 
-RogueLike: RogueLike.o estado.o
-	cc -o RogueLike RogueLike.o estado.o
+unistall:
+	sudo rm /usr/lib/cgi-bin/Roguelike
+	sudo rm /var/www/html/estado
+	sudo rm -r /var/www/html/Imagens
 
-exemplo.zip: $(FICHEIROS)
-	zip -9 RogueLike.zip $(FICHEIROS)
+Roguelike: Roguelike.o estado.o
+	cc -o Roguelike Roguelike.o estado.o
+
+Roguelike.zip: $(FICHEIROS)
+	zip -9 Roguelike.zip $(FICHEIROS)
 
 doc:
 	doxygen -g
 	doxygen
 
 clean:
-	rm -rf *.o RogueLike Doxyfile Doxyfile.bak latex html install
+	rm -rf *.o Roguelike Roguelike.zip Doxyfile Doxyfile.bak latex html install
 
-RogueLike.o: RogueLike.c cgi.h estado.h
+Roguelike.o: Roguelike.c cgi.h estado.h
 
 estado.o: estado.c estado.h
