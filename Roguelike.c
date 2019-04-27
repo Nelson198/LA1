@@ -763,11 +763,11 @@ void imprimir_ajuda() {
 			0, 0, (TAMANHO+10)*ESCALA, (TAMANHO - 0.5)*ESCALA, "http://localhost/Imagens/MenuBackground.jpg");
 
 	TEXTO((float) ESCALA, 3.0 * ESCALA, "#ffffff", "normal", "Bem-vindo ao Roguelike!");
-	TEXTO((float) ESCALA, 4.0 * ESCALA, "#ffffff", "normal", "Vidas de jogador:");
-	TEXTO((float) ESCALA, 5.0 * ESCALA, "#ffffff", "normal", "Comecas com 5 vidas e ganhas 3 vidas por nivel.");
-	TEXTO((float) ESCALA, 6.0 * ESCALA, "#ffffff", "normal", "Pontuacao:");
-	TEXTO(2.0 *ESCALA, 7.0 * ESCALA, "#ffffff", "normal", "5 pontos por inimigo morto;");
-	TEXTO(2.0 *ESCALA, 8.0 * ESCALA, "#ffffff", "normal", "10 pontos por nivel concluido.");
+	TEXTO((float) ESCALA, 4.0 * ESCALA, "#ffffff", "bold", "Vidas de jogador:");
+	TEXTO(2.0 * ESCALA, 5.0 * ESCALA, "#ffffff", "normal", "Comecas com 5 vidas e ganhas 3 vidas por nivel.");
+	TEXTO((float) ESCALA, 6.0 * ESCALA, "#ffffff", "bold", "Pontuacao:");
+	TEXTO(2.0 * ESCALA, 7.0 * ESCALA, "#ffffff", "normal", "5 pontos por inimigo morto;");
+	TEXTO(2.0 * ESCALA, 8.0 * ESCALA, "#ffffff", "normal", "10 pontos por nivel concluido.");
 	TEXTO((float) ESCALA, 9.0 * ESCALA, "#ffffff", "normal", "Boa sorte!");
 
 	imprimir_regressar_menu();
