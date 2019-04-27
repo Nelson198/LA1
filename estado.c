@@ -1,68 +1,17 @@
 #include "estado.h"
 
-/////////////////////////////////////// Funções de DragonSlayer.c ///////////////////////////////////////
+/* <----------------------------------------- Headers de Funções de Roguelike.c ----------------------------------------------> */
 ESTADO inicializar_estado(int nivel, int score_atual, int *scores, int vidas_jogador, int inimigos_mortos, int mostrar_ecra, \
                           int mostrar_possiveis_casas_inimigos, int mostrar_possiveis_casas_jogador, int idx_ultimo_score);
+ESTADO atualizar_scores(ESTADO e);
+ESTADO matar_inimigo(ESTADO e, int x, int y);
 ESTADO movimentar_inimigos(ESTADO e, int a, int b);
-int tem_inimigo(ESTADO e, int x, int y);
-int posicao_igual(POSICAO p, int x, int y);
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
+/* <--------------------------------------------------------------------------------------------------------------------------> */
 
 /**
 @file estado.c
 Código do estado e das funções que convertem estados em ficheiros e vice-versa
 */
-
-/**
-\brief Função que mata um inimigo.
-@param e estado
-@param x coordenada x do inimigo
-@param y coordenada y do inimigo
-@returns estado
-*/
-ESTADO matar_inimigo(ESTADO e, int x, int y) {
-	int i;
-	for (i = 0; i < e.num_inimigos; i++) {
-		if (posicao_igual(e.inimigo[i], x, y)) {
-			e.inimigo[i] = e.inimigo[--e.num_inimigos];
-			break;
-		}
-	}
-	e.inimigos_mortos++;
-	e.vidas_jogador += 5;
-
-	return e;
-}
-
-/**
-\brief Função que atualiza o array de scores.
-@param e estado
-@returns estado
-*/
-ESTADO atualizar_scores(ESTADO e) {
-	int i = 0, aux, aux2, idx_ultimo_score = -2;
-	while (i < NUM_SCORES){
-		if (e.score_atual > e.scores[i]) {
-			idx_ultimo_score = i;
-			aux = e.scores[i];
-			e.scores[i] = e.score_atual;
-			i++;
-			break;
-		}
-		i++;
-	}
-
-	while (i < NUM_SCORES){
-		aux2 = e.scores[i];
-		e.scores[i] = aux;
-		aux = aux2;
-		i++;
-	}
-
-	e.idx_ultimo_score = idx_ultimo_score;
-
-	return e;
-}
 
 ESTADO ficheiro2estado() {
 	FILE *f;

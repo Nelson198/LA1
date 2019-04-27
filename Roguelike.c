@@ -346,6 +346,56 @@ ESTADO inicializar_estado(int nivel, int score_atual, int *scores, int vidas_jog
 }
 
 /**
+\brief Função que atualiza o array de scores.
+@param e Estado
+@returns Estado modificado
+*/
+ESTADO atualizar_scores(ESTADO e) {
+	int i = 0, aux, aux2, idx_ultimo_score = -2;
+	while (i < NUM_SCORES){
+		if (e.score_atual > e.scores[i]) {
+			idx_ultimo_score = i;
+			aux = e.scores[i];
+			e.scores[i] = e.score_atual;
+			i++;
+			break;
+		}
+		i++;
+	}
+
+	while (i < NUM_SCORES) {
+		aux2 = e.scores[i];
+		e.scores[i] = aux;
+		aux = aux2;
+		i++;
+	}
+
+	e.idx_ultimo_score = idx_ultimo_score;
+
+	return e;
+}
+
+/**
+\brief Função que mata um inimigo.
+@param e Estado
+@param x Coordenada x do inimigo
+@param y Coordenada y do inimigo
+@returns Estado modificado
+*/
+ESTADO matar_inimigo(ESTADO e, int x, int y) {
+	int i;
+	for (i = 0; i < e.num_inimigos; i++) {
+		if (posicao_igual(e.inimigo[i], x, y)) {
+			e.inimigo[i] = e.inimigo[--e.num_inimigos];
+			break;
+		}
+	}
+	e.inimigos_mortos++;
+
+	return e;
+}
+
+/**
 \brief Função que move todos os inimigos.
 @param e estado
 @param novojogx Nova abcissa da posição do jogador
@@ -712,14 +762,13 @@ void imprimir_ajuda() {
 	printf("<image x=%d y=%d width=%d height=%f xlink:href=%s />\n", \
 			0, 0, (TAMANHO+10)*ESCALA, (TAMANHO - 0.5)*ESCALA, "http://localhost/Imagens/MenuBackground.jpg");
 
-	TEXTO((float) ESCALA, 3.0 * ESCALA, "#ffffff", "normal", "Bem-vindo ao Roguelike, o melhor jogo de sempre!");
-	TEXTO((float) ESCALA, 4.0 * ESCALA, "#ffffff", "normal", "Comecas com 5 vidas e ganhas 3 vidas por nivel.");
-	TEXTO((float) ESCALA, 5.0 * ESCALA, "#ffffff", "normal", "O objetivo e ultrapassares os 11 niveis.");
+	TEXTO((float) ESCALA, 3.0 * ESCALA, "#ffffff", "normal", "Bem-vindo ao Roguelike!");
+	TEXTO((float) ESCALA, 4.0 * ESCALA, "#ffffff", "normal", "Vidas de jogador:");
+	TEXTO((float) ESCALA, 5.0 * ESCALA, "#ffffff", "normal", "Comecas com 5 vidas e ganhas 3 vidas por nivel.");
 	TEXTO((float) ESCALA, 6.0 * ESCALA, "#ffffff", "normal", "Pontuacao:");
 	TEXTO(2.0 *ESCALA, 7.0 * ESCALA, "#ffffff", "normal", "5 pontos por inimigo morto;");
 	TEXTO(2.0 *ESCALA, 8.0 * ESCALA, "#ffffff", "normal", "10 pontos por nivel concluido.");
-	TEXTO((float) ESCALA, 9.0 * ESCALA, "#ffffff", "normal", "A partir do nivel 5 esperam-te surpresas.");
-	TEXTO((float) ESCALA, 10.0 * ESCALA, "#ffffff", "normal", "Boa sorte!");
+	TEXTO((float) ESCALA, 9.0 * ESCALA, "#ffffff", "normal", "Boa sorte!");
 
 	imprimir_regressar_menu();
 }
@@ -765,15 +814,10 @@ void imprimir_estado(ESTADO e) {
 */
 int main() {
 	srandom(time(NULL));
-
 	ESTADO e = ler_estado(getenv("QUERY_STRING"));
-
 	COMECAR_HTML;
-	ABRIR_SVG((TAMANHO+13.5)*ESCALA, (TAMANHO+0.5)*ESCALA);
-
+	ABRIR_SVG((TAMANHO + 13.5) * ESCALA, (TAMANHO + 0.5) * ESCALA);
 	imprimir_estado(e);
-
 	FECHAR_SVG;
-
 	return 0;
 }
