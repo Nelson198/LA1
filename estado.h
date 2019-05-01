@@ -41,12 +41,20 @@ typedef struct posicao {
 typedef struct estado {
 	/** \brief Posição do jogador */
 	POSICAO jogador;
+	/** \brief Valor auxiliar para comparar o nº de jogadas efetuadas desde o momento em que o jogador apanhou a poção nº2 */
+	float x;
+	/** \brief Diferença entre a posição do jogador e uma possível casa para onde se pode deslocar */
+	int dif;
+	/** \brief Número de jogadas */
+	int jogadas;
 	/** \brief Número de inimigos */
 	int num_inimigos;
 	/** \brief Número de obstáculos */
 	int num_obstaculos;
-	/** \brief Posição da poção */
-	POSICAO pocao;
+	/** \brief Posição da poção nº1 */
+	POSICAO pocao1;
+	/** \brief Posição da poção nº2 */
+	POSICAO pocao2;
 	/** \brief Array com a posição dos inimigos */
 	POSICAO inimigo[MAX_INIMIGOS];
 	/** \brief Array com a posição dos obstáculos */

@@ -1,17 +1,17 @@
 #include "estado.h"
 
+/**
+@file estado.c
+Código do estado e das funções que convertem estados em ficheiros e vice-versa
+*/
+
 /* <----------------------------------------- Headers de Funções de Roguelike.c ----------------------------------------------> */
-ESTADO inicializar_estado(int nivel, int score_atual, int *scores, int vidas_jogador, int inimigos_mortos, int mostrar_ecra, \
+ESTADO inicializar_estado(float x, int dif, int nivel, int score_atual, int *scores, int vidas_jogador, int inimigos_mortos, int mostrar_ecra, \
                           int mostrar_possiveis_casas_inimigos, int mostrar_possiveis_casas_jogador, int idx_ultimo_score);
 ESTADO atualizar_scores(ESTADO e);
 ESTADO matar_inimigo(ESTADO e, int x, int y);
 ESTADO movimentar_inimigos(ESTADO e, int a, int b);
 /* <--------------------------------------------------------------------------------------------------------------------------> */
-
-/**
-@file estado.c
-Código do estado e das funções que convertem estados em ficheiros e vice-versa
-*/
 
 ESTADO ficheiro2estado() {
 	FILE *f;
@@ -28,7 +28,7 @@ ESTADO ficheiro2estado() {
 
 	for(i = 0; i < (sizeof(ESTADO) / sizeof(int)); i++) {
 		if (fscanf(f, "%d", &d) != 1) {
-			e = inicializar_estado(1, 0, NULL, VIDAS, 0, 1, 0, 0, -1);
+			e = inicializar_estado(0.5, 1, 1, 0, NULL, VIDAS, 0, 1, 0, 0, -1);
 			estado2ficheiro(e);
 			break;
 		}
@@ -80,40 +80,73 @@ void aplicar_acao(char *acao, int x, int y) {
 		e = movimentar_inimigos(e, x, y);
 		e.jogador.x = x;
 		e.jogador.y = y;
+		e.jogadas++;
+
+		if(e.jogadas - e.x == 3) {
+			e.dif = 1;
+			e.x = 0.5;
+		}
 	}
 
-	else if(strcmp(acao, "Apanhar_Pocao") == 0) {
+	else if(strcmp(acao, "Apanhar_Pocao1") == 0) {
 		e = movimentar_inimigos(e, x, y);
 		e.jogador.x = x;
 		e.jogador.y = y;
 		e.vidas_jogador++;
-		e.pocao.x = -1;
-		e.pocao.y = -1;
+		e.score_atual += 2;
+		e.pocao1.x = -1;
+		e.pocao1.y = -1;
+		e.jogadas++;
+
+		if(e.jogadas - e.x == 3) {
+			e.dif = 1;
+			e.x = 0.5;
+		}
+	}
+
+	else if(strcmp(acao, "Apanhar_Pocao2") == 0) {
+		e = movimentar_inimigos(e, x, y);
+		e.jogador.x = x;
+		e.jogador.y = y;
+		e.pocao2.x = -1;
+		e.pocao2.y = -1;
+		e.dif = 2;
+		e.score_atual += 3;
+		e.jogadas++;
+		e.x = e.jogadas;
 	}
 
 	else if (strcmp(acao, "Movimentar_Saida") == 0) {
-		if (e.nivel < 10) {
+		if (e.nivel <= 10) {
+			e.nivel++;
 			e.score_atual += 10;
 			e.vidas_jogador += 3;
-			e = inicializar_estado(++e.nivel, e.score_atual, e.scores, e.vidas_jogador, e.inimigos_mortos, 0, e.mostrar_possiveis_casas_inimigos, e.mostrar_possiveis_casas_jogador, -1);
+			e = inicializar_estado(0.5, 1, e.nivel, e.score_atual, e.scores, e.vidas_jogador, e.inimigos_mortos, 0, e.mostrar_possiveis_casas_inimigos, e.mostrar_possiveis_casas_jogador, -1);
 		} else {
 			e.score_atual += 10;
 			e.score_atual += e.vidas_jogador * 2;
 			e = atualizar_scores(e);
-			e = inicializar_estado(0, e.score_atual, e.scores, VIDAS, 0, 2, 0, 0, e.idx_ultimo_score);
+			e = inicializar_estado(0.5, 1, 1, e.score_atual, e.scores, VIDAS, 0, 2, 0, 0, e.idx_ultimo_score);
 		}
+		e.jogadas++;
 	}
 
-	else if (strcmp(acao, "Atacar_Inimigo") == 0) {
+	else if (strcmp(acao, "Matar_Inimigo") == 0) {
 		e.score_atual += 5;
 		e = matar_inimigo(e, x, y);
 		e = movimentar_inimigos(e, x, y);
 		e.jogador.x = x;
 		e.jogador.y = y;
+		e.jogadas++;
+
+		if(e.jogadas - e.x == 3) {
+			e.dif = 1;
+			e.x = 0.5;
+		}
 	}
 
 	else if (strcmp(acao, "Inicio") == 0) {
-		e = inicializar_estado(1, 0, e.scores, VIDAS, 0, 0, 0, 0, -1);
+		e = inicializar_estado(0.5, 1, 1, 0, e.scores, VIDAS, 0, 0, 0, 0, -1);
 	}
 
 	else if (strcmp(acao, "Menu") == 0) {
@@ -130,7 +163,7 @@ void aplicar_acao(char *acao, int x, int y) {
 	}
 
 	else if (strcmp(acao, "Reset") == 0) {
-		e = inicializar_estado(1, 0, NULL, VIDAS, 0, 1, 0, 0, -1);
+		e = inicializar_estado(0.5, 1, 1, 0, NULL, VIDAS, 0, 1, 0, 0, -1);
 	}
 
 	else if (strcmp(acao, "Casas_Possiveis_Inimigo_Ativado") == 0) {
@@ -155,7 +188,7 @@ void aplicar_acao(char *acao, int x, int y) {
 
 	if (e.vidas_jogador <= 0){
 		e = atualizar_scores(e);
-		e = inicializar_estado(1, e.score_atual, e.scores, VIDAS, 0, 2, 0, 0, e.idx_ultimo_score);
+		e = inicializar_estado(0.5, 1, 1, e.score_atual, e.scores, VIDAS, 0, 2, 0, 0, e.idx_ultimo_score);
 	}
 
 	estado2ficheiro(e);

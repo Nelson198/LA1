@@ -1,5 +1,3 @@
-#include <stdlib.h>
-#include <string.h>
 #include <time.h>
 
 #include "cgi.h"
@@ -101,15 +99,27 @@ int tem_obstaculo(ESTADO e, int x, int y) {
 }
 
 /**
-\brief Função que verifica se uma casa tem a poção.
+\brief Função que verifica se uma casa tem a poção nº1.
 @param e Estado
 @param x Coluna
 @param y Linha
 @returns 1 --> Sim\n
          0 --> Não
 */
-int tem_pocao(ESTADO e, int x, int y) {
-	return posicao_igual(e.pocao, x, y);
+int tem_pocao1(ESTADO e, int x, int y) {
+	return posicao_igual(e.pocao1, x, y);
+}
+
+/**
+\brief Função que verifica se uma casa tem a poção nº2.
+@param e Estado
+@param x Coluna
+@param y Linha
+@returns 1 --> Sim\n
+         0 --> Não
+*/
+int tem_pocao2(ESTADO e, int x, int y) {
+	return posicao_igual(e.pocao2, x, y);
 }
 
 /**
@@ -145,7 +155,7 @@ int tem_saida(ESTADO e, int x, int y) {
          0 --> Não
 */
 int tem_entrada(ESTADO e, int x, int y) {
-	if (e.nivel == 0) {
+	if (e.nivel == 1) {
 		return 0;
 	}
 	else {
@@ -162,12 +172,13 @@ int tem_entrada(ESTADO e, int x, int y) {
          0 --> Não
 */
 int posicao_ocupada(ESTADO e, int x, int y) {
+	if (tem_entrada(e, x, y)) return 1;
+	if (tem_saida(e, x, y)) return 1;
+	if (tem_jogador(e, x, y)) return 1;
 	if (tem_inimigo(e, x, y)) return 1;
 	if (tem_obstaculo(e, x, y)) return 1;
-	if (tem_jogador(e, x, y)) return 1;
-	if (tem_saida(e, x, y)) return 1;
-	if (tem_entrada(e, x, y)) return 1;
-	if (tem_pocao(e, x, y)) return 1;
+	if (tem_pocao1(e, x, y)) return 1;
+	if (tem_pocao2(e, x, y)) return 1;
 	return 0;
 }
 
@@ -272,11 +283,11 @@ ESTADO inicializar_obstaculos(ESTADO e, int num) {
 }
 
 /**
-\brief Função que define a posição de uma poção.
+\brief Função que define a posição de uma poção nº1.
 @param e Estado
 @returns Estado modificado
 */
-ESTADO inicializar_pocao(ESTADO e) {
+ESTADO inicializar_pocao1(ESTADO e) {
 	int x, y;
 	do {
 		x = random() % TAMANHO;
@@ -284,7 +295,24 @@ ESTADO inicializar_pocao(ESTADO e) {
 	} while (posicao_ocupada(e, x, y) || (x <= 3 && y >= TAMANHO - 3));
 
 	POSICAO p = {x, y};
-	e.pocao = p;
+	e.pocao1 = p;
+	return e;
+}
+
+/**
+\brief Função que define a posição de uma poção nº2.
+@param e Estado
+@returns Estado modificado
+*/
+ESTADO inicializar_pocao2(ESTADO e) {
+	int x, y;
+	do {
+		x = random() % TAMANHO;
+		y = random() % TAMANHO;
+	} while (posicao_ocupada(e, x, y) || (x <= 3 && y >= TAMANHO - 3));
+
+	POSICAO p = {x, y};
+	e.pocao2 = p;
 	return e;
 }
 
@@ -305,6 +333,8 @@ ESTADO inicializar_scores(ESTADO e, int *scores) {
 
 /**
 \brief Função que cria um nível, atualizando o estado do jogo.
+@param x Valor auxiliar para comparar o nº de jogadas efetuadas desde o momento em que o jogador apanhou a poção nº2
+@param dif Diferença entre a posição do jogador e uma possível casa para onde se pode deslocar
 @param nivel Nível
 @param score_atual Pontuação atual
 @param scores Array de pontuações
@@ -321,10 +351,12 @@ ESTADO inicializar_scores(ESTADO e, int *scores) {
 @param idx_ultimo_score Índice do array correspondente à última pontuação
 @returns Estado modificado
 */
-ESTADO inicializar_estado(int nivel, int score_atual, int *scores, int vidas_jogador, int inimigos_mortos, int mostrar_ecra, int mostrar_possiveis_casas_inimigos, int mostrar_possiveis_casas_jogador, int idx_ultimo_score) {
+ESTADO inicializar_estado(float x, int dif, int nivel, int score_atual, int *scores, int vidas_jogador, int inimigos_mortos, int mostrar_ecra, int mostrar_possiveis_casas_inimigos, int mostrar_possiveis_casas_jogador, int idx_ultimo_score) {
 	ESTADO e;
 	memset(&e, 0, sizeof(ESTADO));
 
+	e.x = x;
+	e.dif = dif;
 	e.nivel = nivel;
 	e.score_atual = score_atual;
 	e.vidas_jogador = vidas_jogador;
@@ -339,7 +371,8 @@ ESTADO inicializar_estado(int nivel, int score_atual, int *scores, int vidas_jog
 	e = inicializar_jogador(e);
 	e = inicializar_inimigos(e, 10 + e.nivel*2);
 	e = inicializar_obstaculos(e, 20);
-	e = inicializar_pocao(e);
+	e = inicializar_pocao1(e);
+	e = inicializar_pocao2(e);
 	e = inicializar_scores(e, scores);
 
 	return e;
@@ -391,7 +424,6 @@ ESTADO matar_inimigo(ESTADO e, int x, int y) {
 		}
 	}
 	e.inimigos_mortos++;
-
 	return e;
 }
 
@@ -431,7 +463,7 @@ ESTADO movimentar_inimigos(ESTADO e, int novojogx, int novojogy) {
 void imprimir_tabuleiro() {
 	for(int y = 0; y < TAMANHO; y++) {
 		for(int x = 0; x < TAMANHO; x++) {
-			IMAGEM(x, y, ESCALA, "grid.png");
+			IMAGEM((float) x, (float) y, ESCALA, "grid.png");
 		}
 	}
 }
@@ -442,7 +474,7 @@ void imprimir_tabuleiro() {
 */
 void imprimir_entrada(ESTADO e) {
 	if (e.nivel >= 2) {
-		IMAGEM(e.entrada.x, e.entrada.y, ESCALA, "stone_stairs_up.png");
+		IMAGEM((float) e.entrada.x, (float) e.entrada.y, ESCALA, "stone_stairs_up.png");
 	}
 }
 
@@ -451,7 +483,7 @@ void imprimir_entrada(ESTADO e) {
 @param e Estado
 */
 void imprimir_saida(ESTADO e) {
-	IMAGEM(e.saida.x, e.saida.y, ESCALA, "stone_stairs_down.png");
+	IMAGEM((float) e.saida.x, (float) e.saida.y, ESCALA, "stone_stairs_down.png");
 }
 
 /**
@@ -477,12 +509,16 @@ void imprimir_acao(ESTADO e, int dx, int dy) {
 	if (!posicao_valida(x, y) || tem_obstaculo(e, x, y) || tem_jogador(e, x, y) || tem_entrada(e, x, y))
 		return;
 
-	if (tem_pocao(e, x, y)) {
-		strcpy(acao, "Apanhar_Pocao");
+	if (tem_pocao1(e, x, y)) {
+		strcpy(acao, "Apanhar_Pocao1");
+	}
+
+	else if (tem_pocao2(e, x, y)) {
+		strcpy(acao, "Apanhar_Pocao2");
 	}
 
 	else if (tem_inimigo(e, x, y)) {
-		strcpy(acao, "Atacar_Inimigo");
+		strcpy(acao, "Matar_Inimigo");
 	}
 
 	else if (tem_saida(e, x, y)) {
@@ -505,8 +541,8 @@ void imprimir_acao(ESTADO e, int dx, int dy) {
 @param e Estado
 */
 void imprimir_acoes(ESTADO e) {
-	for (int dx = -1; dx <= 1; dx++) {
-		for (int dy = -1; dy <= 1; dy++) {
+	for (int dx = -e.dif; dx <= e.dif; dx++) {
+		for (int dy = -e.dif; dy <= e.dif; dy++) {
 			imprimir_acao(e, dx, dy);
 		}
 	}
@@ -517,10 +553,10 @@ void imprimir_acoes(ESTADO e) {
 @param e Estado
 */
 void imprimir_jogador(ESTADO e) {
-	IMAGEM(e.jogador.x, e.jogador.y, ESCALA, "player1.png");
-	IMAGEM(e.jogador.x, e.jogador.y, ESCALA, "player2.png");
-	IMAGEM(e.jogador.x, e.jogador.y, ESCALA, "player3.png");
-	IMAGEM(e.jogador.x, e.jogador.y, ESCALA, "player4.png");
+	IMAGEM((float) e.jogador.x, (float) e.jogador.y, ESCALA, "player1.png");
+	IMAGEM((float) e.jogador.x, (float) e.jogador.y, ESCALA, "player2.png");
+	IMAGEM((float) e.jogador.x, (float) e.jogador.y, ESCALA, "player3.png");
+	IMAGEM((float) e.jogador.x, (float) e.jogador.y, ESCALA, "player4.png");
 	imprimir_acoes(e);
 }
 
@@ -530,7 +566,7 @@ void imprimir_jogador(ESTADO e) {
 */
 void imprimir_inimigos(ESTADO e) {
 	for(int i = 0; i < e.num_inimigos; i++) {
-		IMAGEM(e.inimigo[i].x, e.inimigo[i].y, ESCALA, "enemy.png");
+		IMAGEM((float) e.inimigo[i].x, (float) e.inimigo[i].y, ESCALA, "enemy.png");
 	}
 }
 
@@ -554,7 +590,7 @@ void imprimir_casas_atacadas(ESTADO e) {
 				for (int dy = -1; dy <= 1; dy++) {
 					int x = e.inimigo[k].x + dx;
 					int y = e.inimigo[k].y + dy;
-					if (posicao_valida(x, y) && !posicao_igual(e.inimigo[k], x, y) && !tem_pocao(e, x, y) && !tem_obstaculo(e, x, y) && !tem_saida(e, x, y) && !tem_entrada(e, x, y)) {
+					if (posicao_valida(x, y) && !posicao_igual(e.inimigo[k], x, y) && !tem_pocao1(e, x, y) && !tem_pocao2(e, x, y) && !tem_obstaculo(e, x, y) && !tem_saida(e, x, y) && !tem_entrada(e, x, y)) {
 						QUADRADO(x, y, ESCALA, "red");
 					}
 				}
@@ -578,8 +614,8 @@ void imprimir_casas_possiveis_jogador(ESTADO e) {
 		TEXTO((TAMANHO + 1.0) * ESCALA, (TAMANHO - 0.1) * ESCALA, "#ffef00", "bold", "Ocultar casas para onde o jogador se pode deslocar");
 		FECHAR_LINK;
 
-		for (int dx = -1; dx <= 1; dx++) {
-			for (int dy = -1; dy <= 1; dy++) {
+		for (int dx = -e.dif; dx <= e.dif; dx++) {
+			for (int dy = -e.dif; dy <= e.dif; dy++) {
 				int x = e.jogador.x + dx;
 				int y = e.jogador.y + dy;
 				if (posicao_valida(x, y) && !tem_obstaculo(e, x, y) && !tem_jogador(e, x, y) && !tem_entrada(e, x, y)) {
@@ -596,7 +632,7 @@ void imprimir_casas_possiveis_jogador(ESTADO e) {
 */
 void imprimir_obstaculos(ESTADO e) {
 	for(int i = 0; i < e.num_obstaculos; i++) {
-		IMAGEM(e.obstaculo[i].x, e.obstaculo[i].y, ESCALA, "obstacle.png");
+		IMAGEM((float) e.obstaculo[i].x, (float) e.obstaculo[i].y, ESCALA, "obstacle.png");
 	}
 }
 
@@ -604,9 +640,19 @@ void imprimir_obstaculos(ESTADO e) {
 \brief Função que imprime a poção.
 @param e Estado
 */
-void imprimir_pocao(ESTADO e) {
-	if (e.pocao.x != -1 && e.pocao.y != -1) {
-		IMAGEM(e.pocao.x, e.pocao.y, ESCALA, "potion.png");
+void imprimir_pocao1(ESTADO e) {
+	if (e.pocao1.x != -1 && e.pocao1.y != -1) {
+		IMAGEM((float) e.pocao1.x, (float) e.pocao1.y, ESCALA, "potion1.svg");
+	}
+}
+
+/** 
+\brief Função que imprime a poção nº2.
+@param e Estado
+*/
+void imprimir_pocao2(ESTADO e) {
+	if (e.pocao2.x != -1 && e.pocao2.y != -1) {
+		IMAGEM((float) e.pocao2.x, (float) e.pocao2.y, ESCALA, "potion2.svg");
 	}
 }
 
@@ -626,7 +672,7 @@ void imprimir_score(ESTADO e) {
 */
 void imprimir_nivel(ESTADO e) {
 	char s1[1000];
-	sprintf(s1, "Nivel: %d", e.nivel);
+	sprintf(s1, "Nível: %d", e.nivel);
 	TEXTO((TAMANHO + 1.0) * ESCALA, 60.0, "#4169E1", "bold", s1);	
 }
 
@@ -692,17 +738,17 @@ void imprimir_menu() {
 	printf("<image x=%d y=%d width=%d height=%f xlink:href=%s />\n", \
 			0, 0, (TAMANHO+10)*ESCALA, (TAMANHO - 0.5)*ESCALA, "http://localhost/Imagens/MenuBackground.jpg");
 
-	IMAGEM(4, 3, ESCALA, "play.svg");
+	IMAGEM(4.0, 3.0, ESCALA, "play.svg");
 	ABRIR_LINK("http://localhost/cgi-bin/Roguelike?Inicio");
 	TEXTO((TAMANHO - 9.5) * ESCALA, (TAMANHO/2 - 3.3) * ESCALA, "#ffff00", "bold", "Jogar");
 	FECHAR_LINK;
 
-	IMAGEM(4, 5, ESCALA, "help.svg");
+	IMAGEM(4.0, 5.0, ESCALA, "help.svg");
 	ABRIR_LINK("http://localhost/cgi-bin/Roguelike?Ajuda");
 	TEXTO((TAMANHO - 9.5) * ESCALA, (TAMANHO/2 - 1.3) * ESCALA, "#ffffff", "bold", "Ajuda");
 	FECHAR_LINK;
 
-	IMAGEM(4, 7, ESCALA, "ranking.svg");
+	IMAGEM(4.0, 7.0, ESCALA, "ranking.svg");
 	ABRIR_LINK("http://localhost/cgi-bin/Roguelike?Ranking");
 	TEXTO((TAMANHO - 9.5) * ESCALA, (TAMANHO/2 + 0.7) * ESCALA, "#ffffff", "bold", "Ranking");
 	FECHAR_LINK;
@@ -713,7 +759,7 @@ void imprimir_menu() {
 */
 void imprimir_regressar_menu() {
 	ABRIR_LINK("http://localhost/cgi-bin/Roguelike?Menu");
-	IMAGEM(1, 1, ESCALA, "cross.svg");
+	IMAGEM(1.0, 1.0, ESCALA, "cross.svg");
 	FECHAR_LINK;
 }
 
@@ -736,13 +782,30 @@ void imprimir_melhores_scores(ESTADO e) {
 	printf("<image x=%d y=%d width=%d height=%f xlink:href=%s />\n", \
 			0, 0, (TAMANHO+10)*ESCALA, (TAMANHO - 0.5)*ESCALA, "http://localhost/Imagens/MenuBackground.jpg");
 
+	TEXTO(4.5 * ESCALA, 2.0 * ESCALA, "#ffffff", "bold", "Top 5 de Pontuações");
+
 	for(int i = 0; i < NUM_SCORES; i++) {
 		if (i == e.idx_ultimo_score) {
-			sprintf(s1, "%d. %d", i + 1, e.scores[i]);
-			TEXTO(6.0 * ESCALA, (4.0 + i) * ESCALA, "#00ff00", "bold", s1);
+			sprintf(s1, "%d", e.scores[i]);
+			TEXTO(6.0 * ESCALA, (4.0 + i) * ESCALA, "#000000", "bold", s1);
 		} 
+		else if (i == 0) {
+			IMAGEM(4.7, 3.3, ESCALA, "first_place.svg");
+			sprintf(s1, "%d", e.scores[i]);
+			TEXTO(6.0 * ESCALA, (4.0 + i) * ESCALA, "#ffd700", "bold", s1);
+		}
+		else if (i == 1) {
+			IMAGEM(7.0, 4.3, ESCALA, "second_place.svg");
+			sprintf(s1, "%d", e.scores[i]);
+			TEXTO(6.0 * ESCALA, (4.0 + i) * ESCALA, "#c0c0c0", "bold", s1);
+		}
+		else if (i == 2) {
+			IMAGEM(4.7, 5.3, ESCALA, "third_place.svg");
+			sprintf(s1, "%d", e.scores[i]);
+			TEXTO(6.0 * ESCALA, (4.0 + i) * ESCALA, "#cd7f32", "bold", s1);
+		}
 		else {
-			sprintf(s1, "%d. %d", i + 1, e.scores[i]);
+			sprintf(s1, "%d", e.scores[i]);
 			TEXTO(6.0 * ESCALA, (4.0 + i) * ESCALA, "#ffffff", "bold", s1);
 		}
 	}
@@ -764,11 +827,15 @@ void imprimir_ajuda() {
 
 	TEXTO((float) ESCALA, 3.0 * ESCALA, "#ffffff", "normal", "Bem-vindo ao Roguelike!");
 	TEXTO((float) ESCALA, 4.0 * ESCALA, "#ffffff", "bold", "Vidas de jogador:");
-	TEXTO(2.0 * ESCALA, 5.0 * ESCALA, "#ffffff", "normal", "Comecas com 5 vidas e ganhas 3 vidas por nivel.");
-	TEXTO((float) ESCALA, 6.0 * ESCALA, "#ffffff", "bold", "Pontuacao:");
+	TEXTO(2.0 * ESCALA, 5.0 * ESCALA, "#ffffff", "normal", "Começas com 5 vidas e ganhas 3 vidas por nivel.");
+	TEXTO((float) ESCALA, 6.0 * ESCALA, "#ffffff", "bold", "Pontuação:");
 	TEXTO(2.0 * ESCALA, 7.0 * ESCALA, "#ffffff", "normal", "5 pontos por inimigo morto;");
-	TEXTO(2.0 * ESCALA, 8.0 * ESCALA, "#ffffff", "normal", "10 pontos por nivel concluido.");
-	TEXTO((float) ESCALA, 9.0 * ESCALA, "#ffffff", "normal", "Boa sorte!");
+	TEXTO(2.0 * ESCALA, 8.0 * ESCALA, "#ffffff", "normal", "10 pontos por nivel concluído.");
+	TEXTO((float) ESCALA, 9.0 * ESCALA, "#ffffff", "bold", "Poções:");
+	TEXTO(2.0 * ESCALA, 10.0 * ESCALA, "#ffffff", "normal", "Existe uma poção que te oferece uma vida extra e mais 2 pontos.");
+	TEXTO(2.0 * ESCALA, 11.0 * ESCALA, "#ffffff", "normal", "Existe uma poção que te oferece, ao longo de 3 jogadas, a possibilidade de movimentar num quadrado maior;");
+	TEXTO(2.0 * ESCALA, 12.0 * ESCALA, "#ffffff", "normal", "Esta poção também te oferece mais 3 pontos.");
+	TEXTO((float) ESCALA, 13.0 * ESCALA, "#ffffff", "normal", "Boa sorte!");
 
 	imprimir_regressar_menu();
 }
@@ -782,7 +849,8 @@ void imprimir_estado(ESTADO e) {
 		imprimir_tabuleiro();
 		imprimir_casas_atacadas(e);
 		imprimir_casas_possiveis_jogador(e);
-		imprimir_pocao(e);
+		imprimir_pocao1(e);
+		imprimir_pocao2(e);
 		imprimir_inimigos(e);
 		imprimir_obstaculos(e);
 		imprimir_entrada(e);

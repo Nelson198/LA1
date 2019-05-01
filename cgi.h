@@ -16,7 +16,7 @@ Macros úteis para gerar CGIs
 /**
 \brief Macro para começar o html
 */
-#define COMECAR_HTML							printf("Content-Type: text/html\n\n")
+#define COMECAR_HTML							printf("Content-Type: text/html; charset=utf-8\n\n")
 
 /**
 \brief Macro para abrir um svg
@@ -28,7 +28,7 @@ Macros úteis para gerar CGIs
 /**
 \brief Macro para fechar um svg
 */
-#define FECHAR_SVG								printf("</svg>\n")
+#define FECHAR_SVG								printf("</svg>\n\n")
 
 /**
 \brief Macro para criar uma imagem
@@ -37,7 +37,7 @@ Macros úteis para gerar CGIs
 @param ESCALA A escala da imagem
 @param FICHEIRO O caminho para o link do ficheiro
 */
-#define IMAGEM(X, Y, ESCALA, FICHEIRO)			printf("<image x=%d y=%d width=%d height=%d xlink:href=%s />\n", \
+#define IMAGEM(X, Y, ESCALA, FICHEIRO)			printf("<image x=%f y=%f width=%d height=%d xlink:href=%s />\n", \
 														ESCALA * X, ESCALA * Y, ESCALA, ESCALA, IMAGE_PATH FICHEIRO)
 
 /**
