@@ -1,3 +1,4 @@
+# Licenciatura em Ciências da Computação - UMinho
 # Laboratório de Algoritmia 1 - 2016/2017
 # Jogo do tipo Coffeebreak RogueLike
 
