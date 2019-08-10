@@ -4,6 +4,7 @@ FICHEIROS = cgi.h estado.c estado.h Roguelike.c Makefile Imagens/*
 install: Roguelike
 	sudo cp -r Imagens /var/www/html
 	sudo cp Roguelike /usr/lib/cgi-bin
+	sudo chmod 755 /usr/lib/cgi-bin/Roguelike
 	sudo touch /var/www/html/estado
 	sudo chmod 666 /var/www/html/estado
 	touch install
